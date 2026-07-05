@@ -4,16 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gelesz János vízszerelő – Duguláselhárítás, vízszerelés | XI. kerület + 30 km</title>
-<meta name="description" content="Gelesz János vízszerelő a XI. kerületben és 30 km-es körzetben. Duguláselhárítás, csőjavítás, csaptelep, WC. ~50 év tapasztalat, 4,9 ★ 350+ értékelés. Hívj, vagy kérj visszahívást.">
+<meta name="description" content="Gelesz János vízszerelő a XI. kerületben és 30 km-es körzetben. Duguláselhárítás, csőjavítás, csaptelep, WC. ~50 év tapasztalat, 4,9 ★ 360+ értékelés. Hívj, vagy kérj visszahívást.">
 
 <!--
   ============================================================
   CSERÉLENDŐ HELYŐRZŐK élesítés előtt:
   1. TELEFONSZÁM: "+36 70 123 4567" és "tel:+36701234567" -> valós szám
-  2. ÉRTÉKELÉSSZÁM: "350+" -> valós
-  3. VÉLEMÉNYEK: a 3 kártya szövege minta -> valódiak
-  4. TÉRKÉP: a körzet iframe jelölője az XI. kerület közepére mutat -> pontos bázis
-  5. ŰRLAP: jelenleg csak elrendezés, beküldés nincs bekötve (action/JS kell)
+  2. TÉRKÉP: a körzet iframe jelölője az XI. kerület közepére mutat -> pontos bázis
+  3. ŰRLAP: jelenleg csak elrendezés, beküldés nincs bekötve (action/JS kell)
   ============================================================
 -->
 
@@ -92,6 +90,7 @@ h1.hh em{font-style:normal;color:var(--hero-em)}
 .guarantees svg{width:15px;height:15px;color:#16a34a;flex:none}
 .left-col{display:flex;flex-direction:column;gap:16px}
 .photo-wrap{position:relative}
+.photo{height:100%}
 .photo{border-radius:18px;overflow:hidden;position:relative;background:linear-gradient(160deg,#123c66,#081c33);box-shadow:0 24px 60px -22px rgba(10,37,64,.45)}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:50% 16%}
 .photo.framed{border:9px solid #fff;box-shadow:0 24px 60px -22px rgba(10,37,64,.45),0 0 0 1px var(--line);min-height:420px}
@@ -365,7 +364,9 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
   .contact-grid{grid-template-columns:1fr 1fr;gap:50px}
 }
 @media(min-width:920px){
-  .hero-grid{grid-template-columns:.9fr 1.1fr;gap:44px}
+  .hero-grid{grid-template-columns:.9fr 1.1fr;gap:44px;align-items:stretch}
+  .hero-grid .left-col{height:100%}
+  .hero-grid .photo-wrap{flex:1}
   .why-grid{grid-template-columns:repeat(4,1fr)}
   .callbar{display:none}
   body{padding-bottom:0}
@@ -446,13 +447,13 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
   <div class="wrap hero-grid">
     <div class="left-col">
       <div class="photo-wrap">
-        <div class="photo framed"><img src="images/janos-portre.png" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János, vízszerelő</div></div>
+        <div class="photo framed"><img src="images/janos-portre-2.webp" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János, vízszerelő</div></div>
         <div class="seal">50<span>év tapasztalat</span></div>
       </div>
       <div class="mini-rev">
         <div class="mr-stars">★★★★★</div>
-        <p>„Felhívtam, negyedórán belül visszahívott, másnapra megoldotta a dugulást. Korrekt, tiszta munka."</p>
-        <div class="mr-by">— Anita, XI. kerület</div>
+        <p>„Gyorsan ki tudott jönni a helyszínre, pontosan érkezett, és pontosan annyiba került a munka, amennyit előre megbeszéltünk."</p>
+        <div class="mr-by">— Zsuzsa, Joszaki.hu értékelés</div>
       </div>
     </div>
     <div>
@@ -477,7 +478,7 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
         </a>
         <div class="trustline">
           <span class="tl-stars">★★★★★</span>
-          <span><b>350+ értékelés</b> a tudjukki.hu-n</span>
+          <span><b>360+ értékelés</b> a joszaki.hu-n</span>
           <span class="tl-sep">·</span>
           <span><b>50 év</b> tapasztalat</span>
         </div>
@@ -497,8 +498,8 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
     </div>
     <div class="statsband">
       <div class="statb"><div class="n" data-count="50" data-pre="~">~50</div><div class="l">év tapasztalat</div></div>
-      <div class="statb"><div class="n" data-count="350" data-suf="+">350+</div><div class="l">értékelés</div></div>
-      <div class="statb"><div class="n">4,9 ★</div><div class="l">átlag a tudjukki.hu-n</div></div>
+      <div class="statb"><div class="n" data-count="360" data-suf="+">360+</div><div class="l">értékelés</div></div>
+      <div class="statb"><div class="n">4,9 ★</div><div class="l">átlag a joszaki.hu-n</div></div>
       <div class="statb"><div class="n" data-count="30" data-suf=" km">30 km</div><div class="l">működési körzet</div></div>
     </div>
   </div>
@@ -515,29 +516,29 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
     </div>
     <div class="edito">
       <div class="ecard">
-        <div class="img"><span class="tag">Fő szakterület</span><img src="images/plumber-using-wrench-repair-water-pipe-sink.webp" alt="Duguláselhárítás"></div>
+        <div class="img"><span class="tag">Fő szakterület</span><img src="images/dugulaselharitas-elotte-utana.webp" alt="Duguláselhárítás előtte-utána"></div>
         <div class="body"><h3>Duguláselhárítás</h3><p>Ha nem folyik le a víz, felkúszik, vagy bűzlik a lefolyó. Mosdó, kád, mosogató, WC, kültéri lefolyó — gépi és kézi tisztítással, felesleges bontás nélkül.</p><div class="actions"><a href="#kapcsolat" class="btn btn-call">Hívom emiatt</a><a href="#gyik" class="btn btn-out">Részletek</a></div></div>
       </div>
       <div class="ecard">
-        <div class="img"><span class="tag">Klasszikus vízszerelés</span><img src="images/janos-csovek.png" alt="Vízszerelés"></div>
+        <div class="img"><span class="tag">Klasszikus vízszerelés</span><img src="images/vizszereles-elotte-utana.webp" alt="Vízszerelés előtte-utána"></div>
         <div class="body"><h3>Vízszerelés</h3><p>Csőtörés, szivárgó vagy régi cső, csaptelep- és szifoncsere, WC- és tartályhibák. Javítás vagy csere — előbb megbeszéljük, mi éri meg jobban.</p><div class="actions"><a href="#kapcsolat" class="btn btn-call">Hívom emiatt</a><a href="#gyik" class="btn btn-out">Részletek</a></div></div>
       </div>
     </div>
 
     <div class="rev-head" id="velemenyek">
       <h3>Amit az ügyfelek mondanak</h3>
-      <span class="avg"><span class="st">★★★★★</span> <b>4,9</b> · 350+ értékelés a tudjukki.hu-n</span>
+      <span class="avg"><span class="st">★★★★★</span> <b>4,9</b> · 360+ értékelés a joszaki.hu-n</span>
     </div>
     <div class="revs">
-      <div class="rev"><div class="st">★★★★★</div><p>„Felhívtam, negyedórán belül visszahívott, másnapra megoldotta a dugulást. Korrekt, tiszta munka."</p><div class="by"><span class="av">A</span><span><b>Anita</b> · XI. kerület</span></div></div>
-      <div class="rev"><div class="st">★★★★★</div><p>„Éjjel csőtörés, reggel már itt volt. Gyorsan, korrekt áron megcsinálta. Csak ajánlani tudom."</p><div class="by"><span class="av">P</span><span><b>Péter</b> · Budaörs</span></div></div>
-      <div class="rev"><div class="st">★★★★★</div><p>„Régóta csöpögött a csap, máshol lebeszéltek a javításról. János megoldotta, nem kellett cserélni."</p><div class="by"><span class="av">K</span><span><b>Katalin</b> · Újbuda</span></div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>„Megbízható, korrekt és felkészült szakember — a dugulást gyorsan és tisztán megoldotta, mindenkinek csak ajánlani tudom!"</p><div class="by"><span class="av">B</span><span><b>Bianka</b> · Joszaki.hu értékelés</span></div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>„János nagyon hamar rendelkezésre állt, és rendkívül precíz, alapos munkát végzett."</p><div class="by"><span class="av">A</span><span><b>Attila</b> · Joszaki.hu értékelés</span></div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>„Nálunk ő a dugulás-elhárítás kisistene: jó humorral és nagy szakértelemmel oldotta meg a problémát."</p><div class="by"><span class="av">K</span><span><b>Klári</b> · Joszaki.hu értékelés</span></div></div>
     </div>
 
     <div class="cta-row">
       <p>Neked is segítek — mondd el pár szóban, mi a gond, és felveszem veled a kapcsolatot.</p>
       <a href="#kapcsolat" class="btn btn-call btn-lg"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Kapcsolatfelvétel</a>
-      <span class="src">★★★★★ 4,9 · 350+ értékelés a tudjukki.hu-n</span>
+      <span class="src">★★★★★ 4,9 · 360+ értékelés a joszaki.hu-n</span>
     </div>
   </div>
 </section>
@@ -586,7 +587,7 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
     <div class="deco">
       <div class="dash"></div>
       <div class="dot-ring"></div>
-      <div class="ring-grad"><div class="avatar"><img src="images/janos-portre.png" alt="Gelesz János"></div></div>
+      <div class="ring-grad"><div class="avatar"><img src="images/janos-munka-mosdo.webp" alt="Gelesz János"></div></div>
       <span class="bubble a">50 <small>év</small></span>
       <span class="bubble b"><span class="st">★</span> 4,9</span>
     </div>
@@ -692,7 +693,7 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
   <div class="wrap foot">
     <div class="foot-brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="#35b6ef"/><path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/></svg></span><span><span class="bname">GELESZ JÁNOS</span><span class="bsub">Vízszerelő · Duguláselhárítás</span></span></div>
     <nav class="foot-links"><a href="#szolgaltatasok">Szolgáltatások</a><a href="#referenciak">Referenciák</a><a href="#rolam">Rólam</a><a href="#velemenyek">Vélemények</a><a href="#korzet">Körzet</a><a href="#gyik">GYIK</a><a href="tel:+36701234567">+36 70 123 4567</a></nav>
-    <div class="foot-bottom"><span>© 2026 Gelesz János vízszerelő · XI. kerület + 30 km</span><span><a href="#">Impresszum</a> · <a href="#">Adatkezelési tájékoztató</a> · 4,9 ★ · 350+ értékelés a tudjukki.hu-n</span></div>
+    <div class="foot-bottom"><span>© 2026 Gelesz János vízszerelő · XI. kerület + 30 km</span><span><a href="#">Impresszum</a> · <a href="#">Adatkezelési tájékoztató</a> · 4,9 ★ · 360+ értékelés a joszaki.hu-n</span></div>
   </div>
 </footer>
 
