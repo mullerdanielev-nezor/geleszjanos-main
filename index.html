@@ -367,6 +367,10 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
   .hero-grid{grid-template-columns:.9fr 1.1fr;gap:44px;align-items:stretch}
   .hero-grid .left-col{height:100%}
   .hero-grid .photo-wrap{flex:1}
+  .hero-grid .right-col{display:flex;flex-direction:column;height:100%}
+  .hero-grid .right-col .form{flex:1;display:flex;flex-direction:column;margin-top:18px}
+  .hero-grid .right-col .form textarea{flex:1;min-height:70px}
+  .hero-grid .right-col .form .trustline{margin-top:auto}
   .why-grid{grid-template-columns:repeat(4,1fr)}
   .callbar{display:none}
   body{padding-bottom:0}
@@ -456,7 +460,7 @@ footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
         <div class="mr-by">— Zsuzsa, Joszaki.hu értékelés</div>
       </div>
     </div>
-    <div>
+    <div class="right-col">
       <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
       <h1 class="hh"><em>Vízszerelés</em> és duguláselhárítás — ahogy elvárnád.</h1>
       <p class="hsub">Gelesz János a XI. kerületben és 30 km-es körzetben. Csöpög, dugul, szivárog? Hívj, és megoldom.</p>
