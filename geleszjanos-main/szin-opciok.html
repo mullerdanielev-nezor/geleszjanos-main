@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Színsémák előnézet – János vízszerelő</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* ezeket a témaválasztó állítja (alapérték = Klasszikus) */
+  --bg:#f4f7fb; --card:#fff; --line:#e3eaf2;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#f9531e; --cta-dark:#e0430f;
+  --topbar-bg:#0a2540; --topbar-text:#cdddec; --topbar-accent:#35b6ef;
+  --hdr-bg:rgba(255,255,255,.92); --hdr-text:#0b1c2c; --hdr-border:#e3eaf2;
+  --hero-bg:linear-gradient(100deg,#0a1420,#0a2540 60%,#123c66);
+  --hero-ink:#fff; --hero-sub:#b8cadd; --hero-em:#35b6ef;
+
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.6;font-size:17px;
+  -webkit-font-smoothing:antialiased;transition:background .35s ease}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+
+/* ============ THEME PICKER (fix, felül) ============ */
+.picker{position:sticky;top:0;z-index:200;background:#0b1622;color:#dbe8f4;
+  border-bottom:1px solid rgba(255,255,255,.1);padding:12px 0}
+.picker .wrap{max-width:1180px}
+.picker-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.picker-title{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8fb0cd}
+.themes{display:flex;gap:9px;flex-wrap:wrap}
+.theme-btn{display:flex;align-items:center;gap:9px;cursor:pointer;border:1.5px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.05);border-radius:11px;padding:8px 12px 8px 8px;transition:border-color .15s,background .15s}
+.theme-btn:hover{background:rgba(255,255,255,.1)}
+.theme-btn.active{border-color:#35b6ef;background:rgba(53,182,239,.16)}
+.theme-btn .dots{display:flex}
+.theme-btn .dots i{width:15px;height:15px;border-radius:50%;display:block;margin-left:-5px;border:2px solid #0b1622}
+.theme-btn .dots i:first-child{margin-left:0}
+.theme-btn .nm{font-family:var(--font-display);font-weight:700;font-size:14.5px;color:#eaf3fb}
+
+/* értékek panel */
+.values{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.val{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;padding:5px 9px;font-family:var(--font-mono);font-size:11.5px;color:#c7d6e6}
+.val .sw{width:14px;height:14px;border-radius:4px;border:1px solid rgba(255,255,255,.25);flex:none}
+.val .k{color:#8fb0cd}
+
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--font-display);font-weight:700;font-size:16px;
+  padding:14px 22px;border-radius:12px;border:0;cursor:pointer;line-height:1;white-space:nowrap;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-call{background:var(--cta);color:#fff;box-shadow:0 8px 22px -6px color-mix(in srgb, var(--cta) 55%, transparent)}
+.btn-call:hover{background:var(--cta-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--hero-ink);border:1.5px solid color-mix(in srgb, var(--hero-ink) 32%, transparent)}
+.btn-ghost:hover{border-color:var(--hero-ink)}
+
+/* ============ TOPBAR ============ */
+.topbar{background:var(--topbar-bg);color:var(--topbar-text);font-family:var(--font-mono);font-size:12.5px;transition:background .35s}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:38px;gap:16px}
+.topbar .tb-left{display:flex;align-items:center;gap:20px;min-width:0}
+.topbar .tb-item{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.topbar .tb-item svg{width:15px;height:15px;color:var(--topbar-accent);flex:none}
+.topbar .tb-item b{color:#fff;font-weight:600}
+.topbar .tb-right{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.topbar .tb-right .dot{width:8px;height:8px;border-radius:50%;background:#3ee07a;box-shadow:0 0 0 3px rgba(62,224,122,.22)}
+.tb-hide{display:none}
+
+/* ============ HEADER ============ */
+header.site{position:sticky;top:0;z-index:60;background:var(--hdr-bg);
+  backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--hdr-border);transition:background .35s,border-color .35s}
+.hdr{display:flex;align-items:center;gap:18px;height:72px}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.mark{width:44px;height:44px;border-radius:12px;background:var(--topbar-bg);display:grid;place-items:center;flex:none;overflow:hidden}
+.mark svg{width:25px;height:25px}
+.mark svg .drop{fill:var(--brand)}
+.brand-txt{display:flex;flex-direction:column;line-height:1}
+.brand-name{font-family:var(--font-display);font-weight:800;font-size:23px;color:var(--hdr-text);letter-spacing:.02em}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-top:3px;font-weight:600}
+.nav{display:none;align-items:center;gap:2px;margin:0 auto}
+.nav a{font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--hdr-text);opacity:.85;
+  padding:9px 13px;border-radius:9px;transition:opacity .15s,background .15s}
+.nav a:hover{opacity:1;background:color-mix(in srgb, var(--brand) 14%, transparent)}
+.hdr-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.hdr-phone{display:none;flex-direction:column;align-items:flex-end;line-height:1.1}
+.hdr-phone .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.hdr-phone .num{font-family:var(--font-mono);font-weight:600;font-size:18px;color:var(--hdr-text)}
+.btn-sm{padding:11px 17px;font-size:15px}
+
+/* ============ HERO ============ */
+.hero{position:relative;background:var(--hero-bg);color:var(--hero-ink);overflow:hidden;padding:56px 0;transition:background .35s}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+.hero-pills{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;font-weight:600;
+  color:var(--hero-ink);background:color-mix(in srgb, var(--hero-ink) 9%, transparent);
+  border:1px solid color-mix(in srgb, var(--hero-ink) 18%, transparent);padding:8px 13px;border-radius:999px}
+.pill .g{width:7px;height:7px;border-radius:50%;background:#3ee07a}
+h1.hero-h{font-size:clamp(30px,4.6vw,44px);color:var(--hero-ink);line-height:1.08;letter-spacing:-.015em}
+h1.hero-h em{font-style:normal;color:var(--hero-em)}
+.hero-sub{font-size:clamp(15.5px,1.6vw,18px);color:var(--hero-sub);max-width:480px;margin-top:16px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:13px;margin-top:26px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:26px;padding-top:20px;
+  border-top:1px solid color-mix(in srgb, var(--hero-ink) 14%, transparent)}
+.hero-trust span{font-size:14.5px;color:var(--hero-sub)}
+.hero-trust b{color:var(--hero-ink);font-family:var(--font-display);font-weight:800;font-size:17px}
+/* hero jobb kártya */
+.hero-card{background:var(--card);border-radius:18px;box-shadow:0 24px 60px -20px rgba(5,15,25,.5);overflow:hidden;max-width:340px;margin:0 auto}
+.hero-card .ph{aspect-ratio:5/4;background:linear-gradient(160deg,var(--topbar-bg),color-mix(in srgb,var(--topbar-bg) 60%, #000));display:grid;place-items:center;position:relative}
+.hero-card .ph svg{width:74px;height:74px;color:var(--brand);opacity:.9}
+.hero-card .ph .avail{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:6px;
+  background:color-mix(in srgb, var(--card) 92%, transparent);padding:6px 11px;border-radius:999px;color:var(--ink);font-size:11.5px;font-weight:600}
+.hero-card .ph .avail .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+.hero-card .cbody{padding:16px 18px}
+.hero-card .cbody .stars{color:#f5a623;letter-spacing:1px}
+.hero-card .cbody .who{font-family:var(--font-display);font-weight:800;color:var(--ink);font-size:18px;margin-top:2px}
+.hero-card .cbody .rev{font-size:12.5px;color:var(--muted);font-family:var(--font-mono)}
+
+/* ============ SECTION a háttéren ============ */
+section.blk{padding:56px 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.kicker::before{content:"";width:26px;height:2px;background:var(--brand)}
+h2.sec-t{font-size:clamp(26px,4vw,38px);color:var(--ink)}
+.sec-lead{font-size:17px;color:var(--body);margin-top:12px;max-width:600px}
+.cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:30px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.pcard .ico{width:48px;height:48px;border-radius:12px;background:var(--brand-soft);display:grid;place-items:center;margin-bottom:14px}
+.pcard .ico svg{width:25px;height:25px;color:var(--brand)}
+.pcard h3{font-size:20px;color:var(--ink);margin-bottom:5px}
+.pcard p{font-size:14.5px;color:var(--body)}
+.pcard .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:var(--font-display);font-weight:700;font-size:14.5px;color:var(--cta)}
+
+footer.demo-foot{background:var(--topbar-bg);color:var(--topbar-text);padding:30px 0;font-family:var(--font-mono);font-size:13px;text-align:center;transition:background .35s}
+
+@media(min-width:640px){ .tb-hide{display:flex} .cards{grid-template-columns:1fr 1fr 1fr} }
+@media(min-width:960px){
+  .nav{display:flex}
+  .hdr-phone{display:flex}
+  .hero-grid{grid-template-columns:1.15fr .85fr;gap:44px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TÉMAVÁLASZTÓ ============ -->
+<div class="picker">
+  <div class="wrap">
+    <div class="picker-row">
+      <span class="picker-title">Színséma:</span>
+      <div class="themes" id="themes"></div>
+    </div>
+    <div class="values" id="values"></div>
+  </div>
+</div>
+
+<!-- topbar -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span class="tb-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>XI. kerület <b>+ 30 km</b></span>
+      <span class="tb-item tb-hide"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>H–Szo <b>7:00–20:00</b></span>
+      <span class="tb-item tb-hide"><svg viewBox="0 0 24 24" fill="none"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19l1-5.8L3.5 9.1l5.9-.9L12 3Z" fill="#f5a623"/></svg><b>4,9</b> · 358 vélemény</span>
+    </div>
+    <div class="tb-right"><span class="dot"></span> Ma is elérhető</div>
+  </div>
+</div>
+
+<!-- header -->
+<header class="site">
+  <div class="wrap hdr">
+    <a href="#" class="brand">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path class="drop" d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z"/><path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/></svg></span>
+      <span class="brand-txt"><span class="brand-name">JÁNOS</span><span class="brand-sub">Vízszerelő · Duguláselhárítás</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#">Mi a gond?</a><a href="#">Szolgáltatások</a><a href="#">Vélemények</a><a href="#">Körzet</a><a href="#">GYIK</a>
+    </nav>
+    <div class="hdr-right">
+      <a href="#" class="hdr-phone"><span class="lbl">Hívj most</span><span class="num">+36 70 123 4567</span></a>
+      <a href="#" class="btn btn-call btn-sm"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívás</a>
+    </div>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-pills">
+        <span class="pill"><span class="g"></span>Ma is elérhető</span>
+        <span class="pill">~50 év tapasztalat</span>
+      </div>
+      <h1 class="hero-h">Nem kell tudnod, mi a baj.<br>Elég, ha elmondod, <em>mit látsz</em>.</h1>
+      <p class="hero-sub">Hívj fel, mondd el, mit tapasztalsz. Ha telefonon megoldható, megmondom. Ha ki kell menni, megbeszéljük — felesleges körök nélkül.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-call"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívom Jánost</a>
+        <a href="#" class="btn btn-ghost">Milyen hibákkal hívhatlak?</a>
+      </div>
+      <div class="hero-trust">
+        <span><b>~50 év</b> tapasztalat</span>
+        <span><b>358</b> vélemény · <b>4,9</b></span>
+        <span>XI. kerület <b>+ 30 km</b></span>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="ph">
+        <div class="avail"><span class="g"></span>Ma is elérhető</div>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="currentColor"/></svg>
+      </div>
+      <div class="cbody">
+        <div class="stars">★★★★★</div>
+        <div class="who">János, vízszerelő</div>
+        <div class="rev">4,9 · 358 vélemény</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- section a háttéren -->
+<section class="blk">
+  <div class="wrap">
+    <span class="kicker">Mi a gond?</span>
+    <h2 class="sec-t">Mondd el, mit látsz — a többit megbeszéljük.</h2>
+    <p class="sec-lead">Így néz ki a háttér és a kártyák kontrasztja a kiválasztott sémában.</p>
+    <div class="cards">
+      <div class="pcard">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16M8 8v8m8-8v8M4 16h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+        <h3>Nem folyik le</h3><p>Lassan vagy egyáltalán nem megy le a víz.</p><span class="go">Hívom emiatt →</span>
+      </div>
+      <div class="pcard">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/><path d="M8 20h8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+        <h3>WC-dugulás</h3><p>Nem öblít rendesen, felkúszik a víz.</p><span class="go">Hívom emiatt →</span>
+      </div>
+      <div class="pcard">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c0 5-5 7-5 11a5 5 0 0 0 10 0c0-4-5-6-5-11Z" stroke="currentColor" stroke-width="1.9"/></svg></div>
+        <h3>Csöpög a csap</h3><p>Folyamatosan csöpög vagy nem zár.</p><span class="go">Hívom emiatt →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="demo-foot">Színséma előnézet — a végleges tartalom az éles oldalon lesz.</footer>
+
+<script>
+const THEMES = [
+  { id:'klasszikus', name:'Klasszikus', v:{
+    bg:'#f4f7fb', card:'#ffffff', line:'#e3eaf2', ink:'#0b1c2c', body:'#465a6e', muted:'#71849a',
+    brand:'#1183d6', 'brand-soft':'#e7f4fd', cta:'#f9531e', 'cta-dark':'#e0430f',
+    'topbar-bg':'#0a2540', 'topbar-text':'#cdddec', 'topbar-accent':'#35b6ef',
+    'hdr-bg':'rgba(255,255,255,.92)', 'hdr-text':'#0b1c2c', 'hdr-border':'#e3eaf2',
+    'hero-bg':'linear-gradient(100deg,#0a1420,#0a2540 60%,#123c66)', 'hero-ink':'#ffffff', 'hero-sub':'#b8cadd', 'hero-em':'#35b6ef'
+  }},
+  { id:'ejfeli', name:'Éjféli (sötét)', v:{
+    bg:'#0b1622', card:'#13212f', line:'#243b52', ink:'#eaf2fb', body:'#a7bccf', muted:'#7690a8',
+    brand:'#35b6ef', 'brand-soft':'rgba(53,182,239,.14)', cta:'#f9531e', 'cta-dark':'#e0430f',
+    'topbar-bg':'#060f19', 'topbar-text':'#9fb6cd', 'topbar-accent':'#35b6ef',
+    'hdr-bg':'rgba(11,22,34,.86)', 'hdr-text':'#eaf2fb', 'hdr-border':'#243b52',
+    'hero-bg':'linear-gradient(100deg,#060f19,#0d2036 60%,#0b3a5e)', 'hero-ink':'#ffffff', 'hero-sub':'#a7bccf', 'hero-em':'#35b6ef'
+  }},
+  { id:'homok', name:'Meleg homok', v:{
+    bg:'#faf5ee', card:'#fffdfa', line:'#eadfce', ink:'#241a12', body:'#5c4f42', muted:'#8a7b6b',
+    brand:'#0f766e', 'brand-soft':'#d8ede9', cta:'#e2603f', 'cta-dark':'#c94d2e',
+    'topbar-bg':'#173430', 'topbar-text':'#cfe0dc', 'topbar-accent':'#39c0ad',
+    'hdr-bg':'rgba(255,253,250,.9)', 'hdr-text':'#241a12', 'hdr-border':'#eadfce',
+    'hero-bg':'linear-gradient(100deg,#12302c,#173a34 60%,#1f4a40)', 'hero-ink':'#ffffff', 'hero-sub':'#c7d8d3', 'hero-em':'#5fd6c4'
+  }},
+  { id:'smaragd', name:'Smaragd', v:{
+    bg:'#eef5f1', card:'#ffffff', line:'#d8e6df', ink:'#0b1f18', body:'#40564d', muted:'#6d8479',
+    brand:'#0e9f6e', 'brand-soft':'#dff3ea', cta:'#f9531e', 'cta-dark':'#e0430f',
+    'topbar-bg':'#06251d', 'topbar-text':'#c4e2d5', 'topbar-accent':'#34d399',
+    'hdr-bg':'rgba(255,255,255,.92)', 'hdr-text':'#0b1f18', 'hdr-border':'#d8e6df',
+    'hero-bg':'linear-gradient(100deg,#052a20,#063a2c 60%,#0a5140)', 'hero-ink':'#ffffff', 'hero-sub':'#b3d3c6', 'hero-em':'#34d399'
+  }},
+  { id:'grafit', name:'Grafit + narancs', v:{
+    bg:'#f3f5f8', card:'#ffffff', line:'#e1e6ee', ink:'#0f1a26', body:'#4a5666', muted:'#77828f',
+    brand:'#2563eb', 'brand-soft':'#e5edfd', cta:'#f97316', 'cta-dark':'#ea580c',
+    'topbar-bg':'#1e293b', 'topbar-text':'#c3ccd8', 'topbar-accent':'#60a5fa',
+    'hdr-bg':'rgba(255,255,255,.92)', 'hdr-text':'#0f1a26', 'hdr-border':'#e1e6ee',
+    'hero-bg':'linear-gradient(100deg,#111827,#1e293b 60%,#334155)', 'hero-ink':'#ffffff', 'hero-sub':'#b6c0cd', 'hero-em':'#60a5fa'
+  }},
+  { id:'vilagos', name:'Világos ég (fényes hero)', v:{
+    bg:'#eef4fb', card:'#ffffff', line:'#d9e6f4', ink:'#0b1c2c', body:'#465a6e', muted:'#71849a',
+    brand:'#1183d6', 'brand-soft':'#e7f4fd', cta:'#f9531e', 'cta-dark':'#e0430f',
+    'topbar-bg':'#0a2540', 'topbar-text':'#cdddec', 'topbar-accent':'#35b6ef',
+    'hdr-bg':'rgba(255,255,255,.92)', 'hdr-text':'#0b1c2c', 'hdr-border':'#d9e6f4',
+    'hero-bg':'linear-gradient(120deg,#d6e9fb,#eaf3fc 55%,#f6faff)', 'hero-ink':'#0a2540', 'hero-sub':'#3d5f7e', 'hero-em':'#1183d6'
+  }},
+];
+
+const root = document.documentElement;
+const themesEl = document.getElementById('themes');
+const valuesEl = document.getElementById('values');
+
+// az értékpanelen megjelenő kulcsok
+const SHOWN = [
+  ['bg','Háttér'], ['card','Kártya'], ['ink','Szöveg'], ['brand','Márka'],
+  ['cta','CTA gomb'], ['topbar-bg','Fejléc-sáv'], ['hero-em','Hero kiemelés']
+];
+
+function applyTheme(t){
+  for(const [k,val] of Object.entries(t.v)) root.style.setProperty('--'+k, val);
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.id===t.id));
+  // értékpanel
+  valuesEl.innerHTML = SHOWN.map(([k,label]) =>
+    `<span class="val"><span class="sw" style="background:${t.v[k]}"></span><span class="k">${label}:</span> ${t.v[k]}</span>`
+  ).join('') + `<span class="val" style="border-style:dashed"><span class="k">Hero:</span> színátmenet</span>`;
+}
+
+THEMES.forEach(t => {
+  const b = document.createElement('button');
+  b.className = 'theme-btn'; b.dataset.id = t.id;
+  b.innerHTML = `<span class="dots">
+      <i style="background:${t.v['topbar-bg']}"></i>
+      <i style="background:${t.v.bg}"></i>
+      <i style="background:${t.v.brand}"></i>
+      <i style="background:${t.v.cta}"></i>
+    </span><span class="nm">${t.name}</span>`;
+  b.addEventListener('click', () => applyTheme(t));
+  themesEl.appendChild(b);
+});
+
+applyTheme(THEMES[0]);
+</script>
+</body>
+</html>

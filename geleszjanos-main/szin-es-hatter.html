@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Szín + háttér előnézet | Gelesz János</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#f9531e; --cta-dark:#e0430f;
+  --navy:#0a2540; --cyan:#35b6ef;
+  --hero-bg:linear-gradient(120deg,#d6e9fb,#eaf3fc 55%,#f6faff);
+  --hero-ink:#0a2540; --hero-sub:#3d5f7e; --hero-em:#1183d6;
+  --pat:#c9ddf2;
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;transition:background .35s}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px;position:relative;z-index:1}
+
+/* alap háttér-design réteg */
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;transition:opacity .35s}
+body[data-bg="solid"] .bgfx{background:var(--bg)}
+body[data-bg="gradient"] .bgfx{background:linear-gradient(180deg,color-mix(in srgb,var(--brand) 12%,var(--bg)) 0%,var(--bg) 45%,#ffffff 100%)}
+body[data-bg="dots"] .bgfx{background:radial-gradient(circle,var(--pat) 1.3px,transparent 1.6px) 0 0/24px 24px,var(--bg)}
+body[data-bg="grid"] .bgfx{background:linear-gradient(var(--pat) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,var(--pat) 1px,transparent 1px) 0 0/32px 32px,var(--bg);opacity:.7}
+body[data-bg="glow"] .bgfx{background:radial-gradient(700px 460px at 12% 6%,color-mix(in srgb,var(--brand) 22%,transparent),transparent 60%),radial-gradient(640px 460px at 92% 30%,color-mix(in srgb,var(--cyan) 20%,transparent),transparent 60%),var(--bg)}
+
+/* választó */
+.picker{position:sticky;top:0;z-index:200;background:#0b1622;color:#dbe8f4;border-bottom:1px solid rgba(255,255,255,.1);padding:11px 0}
+.pgroup{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:4px 0}
+.pgroup .lab{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#8fb0cd;min-width:96px}
+.opt,.optbg{cursor:pointer;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#eaf3fb;border-radius:9px;padding:6px 11px;font-family:var(--font-display);font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:8px}
+.opt:hover,.optbg:hover{background:rgba(255,255,255,.1)}
+.opt.active,.optbg.active{border-color:#35b6ef;background:rgba(53,182,239,.18);color:#fff}
+.opt .dots{display:flex}
+.opt .dots i{width:13px;height:13px;border-radius:50%;display:block;margin-left:-4px;border:2px solid #0b1622}
+.opt .dots i:first-child{margin-left:0}
+
+/* gombok */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:15.5px;padding:13px 21px;border-radius:12px;border:0;cursor:pointer;line-height:1;white-space:nowrap;transition:transform .15s,background .2s}
+.btn svg{width:18px;height:18px}
+.btn-call{background:var(--cta);color:#fff;box-shadow:0 8px 20px -8px color-mix(in srgb,var(--cta) 60%,transparent)}
+.btn-call:hover{background:var(--cta-dark);transform:translateY(-2px)}
+.btn-out{background:#fff;color:var(--navy);border:1.6px solid var(--line)}
+
+/* fejléc */
+header.site{position:sticky;top:47px;z-index:60;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.mark{width:42px;height:42px;border-radius:11px;background:var(--navy);display:grid;place-items:center;flex:none}
+.mark svg{width:24px;height:24px}
+.bname{font-family:var(--font-display);font-weight:900;color:var(--ink);font-size:27px}
+.bsub{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;font-weight:600;display:block}
+.nav{display:none;align-items:center;gap:2px}
+.nav a{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--navy);padding:8px 11px;border-radius:8px;opacity:.82}
+.nav a:hover{opacity:1;background:var(--brand-soft);color:var(--brand)}
+.hdr3{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;height:78px}
+.hdr3 .brand{display:flex;flex-direction:column;gap:4px;text-align:center;justify-self:center}
+.hdr3 .right{justify-self:end;display:flex;align-items:center;gap:10px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:48px 0;color:var(--hero-ink);background:var(--hero-bg);transition:background .35s}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--hero-ink);background:color-mix(in srgb,var(--hero-ink) 9%,transparent);border:1px solid color-mix(in srgb,var(--hero-ink) 18%,transparent);padding:8px 13px;border-radius:999px;margin-bottom:16px}
+.pill .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+h1.hh{font-size:clamp(28px,4vw,42px);color:var(--hero-ink);line-height:1.09}
+h1.hh em{font-style:normal;color:var(--hero-em)}
+.hsub{font-size:16.5px;color:var(--hero-sub);max-width:500px;margin-top:14px}
+.hcta{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.hero-photo{border-radius:18px;overflow:hidden;border:8px solid #fff;aspect-ratio:4/5;max-width:320px;margin:0 auto;box-shadow:0 24px 60px -24px rgba(10,37,64,.5);position:relative}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.hero-photo .seal{position:absolute;right:-10px;top:-10px;width:74px;height:74px;border-radius:50%;background:var(--cta);color:#fff;display:grid;place-content:center;text-align:center;font-family:var(--font-display);font-weight:900;font-size:24px;line-height:.85;border:4px solid #fff;box-shadow:0 12px 26px -8px color-mix(in srgb,var(--cta) 60%,transparent)}
+.hero-photo .seal span{display:block;font-size:8px;margin-top:3px;text-transform:uppercase}
+
+/* miért engem + stat */
+.why{padding:52px 0}
+.why-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:32px}
+.why-item{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.why-item .ic{width:44px;height:44px;border-radius:11px;background:var(--brand-soft);display:grid;place-items:center;flex:none}
+.why-item .ic svg{width:23px;height:23px;color:var(--brand)}
+.why-item h3{font-size:17px;margin-bottom:2px}.why-item p{font-size:13.5px;color:var(--body)}
+.statsband{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--navy);border-radius:20px;padding:26px;color:#dbe8f4;position:relative;overflow:hidden}
+.statsband::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 90% 0,color-mix(in srgb,var(--cyan) 20%,transparent),transparent 60%)}
+.statb{text-align:center;position:relative}
+.statb .n{font-family:var(--font-display);font-weight:900;font-size:31px;color:#fff}
+.statb .l{font-family:var(--font-mono);font-size:11.5px;color:#9fb6cd;margin-top:5px}
+
+/* mi a gond */
+.problems{padding:56px 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.kicker::before{content:"";width:26px;height:2px;background:var(--cyan)}
+h2.sec-t{font-size:clamp(25px,3.6vw,36px);color:var(--ink)}
+.sec-head{max-width:640px;margin-bottom:30px}
+.sec-lead{font-size:16.5px;color:var(--body);margin-top:10px}
+.prob-grid{display:grid;grid-template-columns:1fr;gap:13px}
+.prob{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.prob .ic{width:46px;height:46px;border-radius:11px;background:var(--brand-soft);display:grid;place-items:center;margin-bottom:12px}
+.prob .ic svg{width:24px;height:24px;color:var(--brand)}
+.prob h3{font-size:18px;margin-bottom:4px}.prob p{font-size:13.5px;color:var(--body)}
+.prob .go{display:inline-flex;gap:6px;margin-top:10px;font-family:var(--font-display);font-weight:700;font-size:13.5px;color:var(--cta)}
+
+/* kapcsolat */
+.contact{padding:56px 0;background:var(--navy);color:#dbe8f4;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 400px at 85% 0,color-mix(in srgb,var(--cyan) 18%,transparent),transparent 60%)}
+.contact .kicker{color:var(--cyan)}.contact h2{color:#fff}.contact h2 em{color:var(--cyan)}
+.contact .lead{color:#b8cadd;margin-top:12px;max-width:440px}
+.cline{display:flex;align-items:center;gap:11px;font-size:16px;color:#eaf3fb;margin-top:14px}
+.cline svg{width:20px;height:20px;color:var(--cyan)}
+.cline b{font-family:var(--font-mono);font-weight:600}
+
+footer.site{background:color-mix(in srgb,var(--navy) 82%,#000);color:#8fa6bd;padding:30px 0;font-family:var(--font-mono);font-size:13px;text-align:center}
+
+@media(min-width:760px){
+  .nav{display:flex}
+  .hero-grid{grid-template-columns:1.1fr .9fr}
+  .why-grid{grid-template-columns:1fr 1fr 1fr}
+  .statsband{grid-template-columns:repeat(4,1fr)}
+  .prob-grid{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+</head>
+<body data-bg="solid">
+<div class="bgfx"></div>
+
+<!-- VÁLASZTÓ -->
+<div class="picker">
+  <div class="wrap">
+    <div class="pgroup"><span class="lab">Színséma</span><div class="themes" id="themes"></div></div>
+    <div class="pgroup"><span class="lab">Háttér</span>
+      <button class="optbg" data-bg="solid">Egyszínű</button>
+      <button class="optbg" data-bg="gradient">Színátmenet</button>
+      <button class="optbg" data-bg="dots">Finom pöttyök</button>
+      <button class="optbg" data-bg="grid">Rács</button>
+      <button class="optbg" data-bg="glow">Fény-foltok</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEJLÉC -->
+<header class="site">
+  <div class="wrap hdr3">
+    <nav class="nav"><a href="#">Szolgáltatások</a><a href="#">Referenciák</a><a href="#">Rólam</a></nav>
+    <a href="#" class="brand"><span class="bname">GELESZ JÁNOS</span><span class="bsub">Vízszerelő · Duguláselhárítás</span></a>
+    <div class="right"><nav class="nav"><a href="#">Körzet</a><a href="#">GYIK</a></nav><a href="#" class="btn btn-out" style="padding:9px 14px;font-size:14px">Ajánlatkérés</a><a href="#" class="btn btn-call" style="padding:9px 14px;font-size:14px">Hívás</a></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="g"></span>Ma is elérhető</span>
+      <h1 class="hh"><em>Vízszerelés</em> és duguláselhárítás — ahogy elvárnád.</h1>
+      <p class="hsub">Gelesz János a XI. kerületben és 30 km-es körzetben. Csöpög, dugul, szivárog? Hívj, és megoldom.</p>
+      <div class="hcta"><a href="#" class="btn btn-call">Felveszem a kapcsolatot</a><a href="#" class="btn btn-out">Vagy hívj most</a></div>
+    </div>
+    <div class="hero-photo"><div class="seal">50<span>év</span></div><img src="images/janos-portre.png" alt="Gelesz János"></div>
+  </div>
+</section>
+
+<!-- MIÉRT ENGEM + STAT -->
+<section class="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Gyors kiszállás</h3><p>Legtöbbször aznap vagy másnap.</p></div></div>
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Tiszta munka</h3><p>Rend marad utánam.</p></div></div>
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><h3>Számlát adok</h3><p>Nincs rejtett díj.</p></div></div>
+    </div>
+    <div class="statsband">
+      <div class="statb"><div class="n">~50</div><div class="l">év tapasztalat</div></div>
+      <div class="statb"><div class="n">358</div><div class="l">értékelés</div></div>
+      <div class="statb"><div class="n">4,9 ★</div><div class="l">átlag a tudjukki.hu-n</div></div>
+      <div class="statb"><div class="n">30 km</div><div class="l">működési körzet</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MI A GOND (a háttér itt látszik jól) -->
+<section class="problems">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Mi a gond?</span><h2 class="sec-t">Így néz ki a háttér a kártyák mögött.</h2><p class="sec-lead">A „Háttér" kapcsoló ezen a világos szakaszon látszik igazán.</p></div>
+    <div class="prob-grid">
+      <div class="prob"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16M8 8v8m8-8v8M4 16h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span><h3>Nem folyik le</h3><p>Lassan vagy egyáltalán nem megy le a víz.</p><span class="go">Emiatt hívom →</span></div>
+      <div class="prob"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/></svg></span><h3>WC-dugulás</h3><p>Nem öblít rendesen, felkúszik a víz.</p><span class="go">Emiatt hívom →</span></div>
+      <div class="prob"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c0 5-5 7-5 11a5 5 0 0 0 10 0c0-4-5-6-5-11Z" stroke="currentColor" stroke-width="1.9"/></svg></span><h3>Csöpög a csap</h3><p>Folyamatosan csöpög vagy nem zár.</p><span class="go">Emiatt hívom →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- KAPCSOLAT -->
+<section class="contact">
+  <div class="wrap">
+    <span class="kicker">Kapcsolat</span>
+    <h2 class="sec-t">Vedd fel velem a <em>kapcsolatot</em>.</h2>
+    <p class="lead">Mondd el pár szóban, mi a gond, és hívlak.</p>
+    <div class="cline"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg><b>+36 70 123 4567</b></div>
+  </div>
+</section>
+
+<footer class="site">© 2026 Gelesz János vízszerelő · színséma + háttér előnézet</footer>
+
+<script>
+const THEMES = [
+  {id:'vilagos', name:'Világos ég', v:{bg:'#eef4fb',card:'#ffffff',line:'#d9e6f4',ink:'#0b1c2c',body:'#465a6e',muted:'#71849a',brand:'#1183d6','brand-soft':'#e7f4fd',cta:'#f9531e','cta-dark':'#e0430f',navy:'#0a2540',cyan:'#35b6ef',pat:'#c9ddf2','hero-bg':'linear-gradient(120deg,#d6e9fb,#eaf3fc 55%,#f6faff)','hero-ink':'#0a2540','hero-sub':'#3d5f7e','hero-em':'#1183d6'}},
+  {id:'smaragd', name:'Smaragd', v:{bg:'#eef5f1',card:'#ffffff',line:'#d8e6df',ink:'#0b1f18',body:'#40564d',muted:'#6d8479',brand:'#0e9f6e','brand-soft':'#dff3ea',cta:'#f9531e','cta-dark':'#e0430f',navy:'#06251d',cyan:'#34d399',pat:'#c7e3d6','hero-bg':'linear-gradient(120deg,#d3ede2,#e6f4ee 55%,#f5fbf8)','hero-ink':'#06251d','hero-sub':'#3c5a4f','hero-em':'#0e9f6e'}},
+  {id:'grafit', name:'Grafit + narancs', v:{bg:'#f3f5f8',card:'#ffffff',line:'#e1e6ee',ink:'#0f1a26',body:'#4a5666',muted:'#77828f',brand:'#2563eb','brand-soft':'#e5edfd',cta:'#f97316','cta-dark':'#ea580c',navy:'#1e293b',cyan:'#60a5fa',pat:'#d4dbe6','hero-bg':'linear-gradient(120deg,#dbe3ef,#eaeff6 55%,#f7f9fc)','hero-ink':'#0f1a26','hero-sub':'#465064','hero-em':'#2563eb'}},
+  {id:'homok', name:'Meleg homok', v:{bg:'#faf5ee',card:'#fffdfa',line:'#eadfce',ink:'#241a12',body:'#5c4f42',muted:'#8a7b6b',brand:'#0f766e','brand-soft':'#d8ede9',cta:'#e2603f','cta-dark':'#c94d2e',navy:'#173430',cyan:'#39c0ad',pat:'#e6dcc8','hero-bg':'linear-gradient(120deg,#efe6d8,#f6efe4 55%,#fdfaf4)','hero-ink':'#241a12','hero-sub':'#5c4f42','hero-em':'#0f766e'}},
+  {id:'tengerkek', name:'Tengerkék', v:{bg:'#eaf2fc',card:'#ffffff',line:'#d3e3f6',ink:'#0a1e35',body:'#3f556f',muted:'#6b809a',brand:'#0b5cc2','brand-soft':'#dcebfb',cta:'#f9531e','cta-dark':'#e0430f',navy:'#0a2c52',cyan:'#3b9be8',pat:'#c6dcf4','hero-bg':'linear-gradient(120deg,#cfe3fb,#e2effc 55%,#f4f9ff)','hero-ink':'#0a2c52','hero-sub':'#375677','hero-em':'#0b5cc2'}},
+  {id:'ejfeli', name:'Éjféli (sötét)', v:{bg:'#0b1622',card:'#13212f',line:'#243b52',ink:'#eaf2fb',body:'#a7bccf',muted:'#7690a8',brand:'#35b6ef','brand-soft':'rgba(53,182,239,.14)',cta:'#f9531e','cta-dark':'#e0430f',navy:'#060f19',cyan:'#35b6ef',pat:'#1c2b3a','hero-bg':'linear-gradient(120deg,#0b1c30,#0e2438 55%,#123a5e)','hero-ink':'#ffffff','hero-sub':'#a7bccf','hero-em':'#35b6ef'}},
+];
+const root=document.documentElement;
+const themesEl=document.getElementById('themes');
+function applyTheme(t){
+  for(const k in t.v) root.style.setProperty('--'+k,t.v[k]);
+  document.querySelectorAll('.themes .opt').forEach(b=>b.classList.toggle('active',b.dataset.id===t.id));
+}
+THEMES.forEach(t=>{
+  const b=document.createElement('button');b.className='opt';b.dataset.id=t.id;
+  b.innerHTML=`<span class="dots"><i style="background:${t.v.navy}"></i><i style="background:${t.v.bg}"></i><i style="background:${t.v.brand}"></i><i style="background:${t.v.cta}"></i></span>${t.name}`;
+  b.addEventListener('click',()=>applyTheme(t));
+  themesEl.appendChild(b);
+});
+document.querySelectorAll('.optbg').forEach(b=>{
+  b.addEventListener('click',()=>{document.body.dataset.bg=b.dataset.bg;document.querySelectorAll('.optbg').forEach(x=>x.classList.toggle('active',x===b));});
+});
+applyTheme(THEMES[0]);
+document.querySelector('.optbg').classList.add('active');
+</script>
+</body>
+</html>

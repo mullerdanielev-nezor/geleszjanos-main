@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Világos ég – fejléc / hero / háttér opciók</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* ===== VILÁGOS ÉG paletta (rögzített) ===== */
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#f9531e; --cta-dark:#e0430f;
+  --navy:#0a2540; --cyan:#35b6ef;
+  --hero-ink:#0a2540; --hero-sub:#3d5f7e; --hero-em:#1183d6;
+
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--body);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;
+  background:var(--bg);transition:background .3s ease}
+/* HÁTTÉR opciók */
+body[data-bg="solid"]{background:var(--bg)}
+body[data-bg="white"]{background:#ffffff}
+body[data-bg="gradient"]{background:linear-gradient(180deg,#e3eefb 0%,#eef4fb 30%,#f6faff 100%)}
+body[data-bg="dots"]{background:
+  radial-gradient(circle, #cfe0f3 1px, transparent 1.4px) 0 0/22px 22px,
+  var(--bg)}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+.hidden{display:none !important}
+
+/* ============ VÁLASZTÓ SÁV ============ */
+.picker{position:sticky;top:0;z-index:200;background:#0b1622;color:#dbe8f4;border-bottom:1px solid rgba(255,255,255,.1);padding:12px 0}
+.pgroup{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:5px 0}
+.pgroup .lab{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#8fb0cd;min-width:96px}
+.opt{cursor:pointer;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#eaf3fb;
+  border-radius:9px;padding:7px 13px;font-family:var(--font-display);font-weight:700;font-size:14px;transition:border-color .15s,background .15s}
+.opt:hover{background:rgba(255,255,255,.1)}
+.opt.active{border-color:#35b6ef;background:rgba(53,182,239,.18);color:#fff}
+
+/* ============ gombok ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:16px;
+  padding:14px 22px;border-radius:12px;border:0;cursor:pointer;line-height:1;white-space:nowrap;transition:transform .15s,box-shadow .2s,background .2s}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-sm{padding:11px 17px;font-size:15px}
+.btn-lg{font-size:18px;padding:16px 26px}
+.btn-call{background:var(--cta);color:#fff;box-shadow:0 8px 22px -6px color-mix(in srgb,var(--cta) 55%,transparent)}
+.btn-call:hover{background:var(--cta-dark);transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
+
+/* ============ közös fejléc-elemek ============ */
+.topbar{background:var(--navy);color:#cdddec;font-family:var(--font-mono);font-size:12.5px}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:38px;gap:16px}
+.topbar .tb-item{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.topbar .tb-item svg{width:15px;height:15px;color:var(--cyan)}
+.topbar b{color:#fff}
+.topbar .dot{width:8px;height:8px;border-radius:50%;background:#3ee07a;display:inline-block}
+.tb-hide{display:none}
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.mark{width:44px;height:44px;border-radius:12px;background:var(--navy);display:grid;place-items:center;flex:none}
+.mark svg{width:25px;height:25px}
+.brand-name{font-family:var(--font-display);font-weight:800;font-size:23px;color:var(--ink);letter-spacing:.02em;line-height:1}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-top:3px;font-weight:600;display:block}
+.hdr-phone .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600;display:block;text-align:right}
+.hdr-phone .num{font-family:var(--font-mono);font-weight:600;font-size:18px;color:var(--ink)}
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.navlinks a{font-family:var(--font-display);font-weight:600;font-size:16px;color:var(--navy);padding:9px 12px;border-radius:9px;opacity:.85}
+.navlinks a:hover{opacity:1;background:var(--brand-soft);color:var(--brand)}
+
+/* FEJLÉC A – teljes (topbar + középső menü) */
+#hdr-a .hdr{display:flex;align-items:center;gap:18px;height:72px}
+#hdr-a .navlinks{display:none;align-items:center;gap:2px;margin:0 auto}
+#hdr-a .hdr-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+#hdr-a .hdr-phone{display:none}
+/* FEJLÉC B – minimál (nincs topbar, nincs menü) */
+#hdr-b .hdr{display:flex;align-items:center;height:72px}
+#hdr-b .hdr-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+#hdr-b .hdr-phone{display:none}
+/* FEJLÉC C – középen a logó, két oldalt menü */
+#hdr-c .hdr{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:76px;gap:12px}
+#hdr-c .navlinks{display:none;align-items:center;gap:2px}
+#hdr-c .navlinks.right{justify-self:end}
+#hdr-c .brand{flex-direction:column;gap:4px;text-align:center}
+#hdr-c .brand .brand-sub{margin-top:2px}
+#hdr-c .hdr-right{justify-self:end;display:flex;align-items:center;gap:14px}
+
+/* ============ HERO közös ============ */
+.hero{position:relative;overflow:hidden;padding:58px 0;color:var(--hero-ink);
+  background:linear-gradient(120deg,#d6e9fb,#eaf3fc 55%,#f6faff)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--navy);
+  background:rgba(17,131,214,.09);border:1px solid rgba(17,131,214,.2);padding:8px 13px;border-radius:999px}
+.pill .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+h1.hero-h{font-size:clamp(30px,4.6vw,46px);color:var(--hero-ink);line-height:1.08;letter-spacing:-.015em}
+h1.hero-h em{font-style:normal;color:var(--hero-em)}
+.hero-sub{font-size:clamp(15.5px,1.6vw,18px);color:var(--hero-sub);max-width:500px;margin-top:16px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:13px;margin-top:26px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:26px;padding-top:20px;border-top:1px solid rgba(10,37,64,.12)}
+.hero-trust span{font-size:14.5px;color:var(--hero-sub)}
+.hero-trust b{color:var(--hero-ink);font-family:var(--font-display);font-weight:800;font-size:17px}
+/* kártya (hero 1) */
+.hero-card{background:#fff;border-radius:18px;box-shadow:0 24px 60px -22px rgba(10,37,64,.4);overflow:hidden;max-width:330px;margin:0 auto;border:1px solid var(--line)}
+.hero-card .ph{aspect-ratio:5/4;background:linear-gradient(160deg,#123c66,#081c33);display:grid;place-items:center;position:relative}
+.hero-card .ph>svg{width:72px;height:72px;color:var(--cyan);opacity:.9}
+.hero-card .avail{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.95);padding:6px 11px;border-radius:999px;color:var(--ink);font-size:11.5px;font-weight:600}
+.hero-card .avail .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+.hero-card .cbody{padding:15px 18px}
+.hero-card .stars{color:#f5a623;letter-spacing:1px}
+.hero-card .who{font-family:var(--font-display);font-weight:800;color:var(--ink);font-size:18px;margin-top:2px}
+.hero-card .rev{font-size:12.5px;color:var(--muted);font-family:var(--font-mono)}
+/* fotó (hero 4) */
+.hero-photo{border-radius:18px;overflow:hidden;aspect-ratio:4/5;max-width:360px;margin:0 auto;position:relative;
+  background:linear-gradient(160deg,#123c66,#081c33);display:grid;place-items:center;box-shadow:0 24px 60px -22px rgba(10,37,64,.45)}
+.hero-photo>svg{width:120px;height:120px;color:var(--cyan);opacity:.85}
+.hero-photo .tag{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.95);padding:8px 14px;border-radius:11px;font-family:var(--font-display);font-weight:800;color:var(--ink);font-size:17px}
+/* űrlap (hero 3) */
+.hero-form{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -22px rgba(10,37,64,.35);padding:22px 24px;max-width:380px;margin:0 auto}
+.hero-form h3{font-size:19px;margin-bottom:2px}
+.hero-form .sub{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.hero-form label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.hero-form input,.hero-form textarea{width:100%;font-family:var(--font-body);font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px 12px;outline:none;margin-bottom:10px;resize:none}
+.hero-form input:focus,.hero-form textarea:focus{border-color:var(--brand)}
+.hero-form button{width:100%}
+
+.hero-grid-2{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+.hero-center{max-width:760px;margin:0 auto;text-align:center}
+.hero-center .hero-pills,.hero-center .hero-cta{justify-content:center}
+.hero-center .hero-sub{margin-left:auto;margin-right:auto}
+.hero-center .hero-trust{justify-content:center}
+
+/* ============ szekció a háttéren ============ */
+section.blk{padding:56px 0}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.kicker::before{content:"";width:26px;height:2px;background:var(--brand)}
+h2.sec-t{font-size:clamp(26px,4vw,38px)}
+.sec-lead{font-size:17px;color:var(--body);margin-top:12px;max-width:600px}
+.cards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:28px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.pcard .ico{width:48px;height:48px;border-radius:12px;background:var(--brand-soft);display:grid;place-items:center;margin-bottom:14px}
+.pcard .ico svg{width:25px;height:25px;color:var(--brand)}
+.pcard h3{font-size:20px;margin-bottom:5px}
+.pcard p{font-size:14.5px;color:var(--body)}
+.pcard .go{display:inline-flex;gap:6px;margin-top:14px;font-family:var(--font-display);font-weight:700;font-size:14.5px;color:var(--cta)}
+footer.df{background:var(--navy);color:#cdddec;padding:28px 0;font-family:var(--font-mono);font-size:13px;text-align:center}
+
+@media(min-width:640px){ .tb-hide{display:flex} .cards{grid-template-columns:1fr 1fr 1fr} }
+@media(min-width:960px){
+  #hdr-a .navlinks,#hdr-c .navlinks{display:flex}
+  #hdr-a .hdr-phone,#hdr-b .hdr-phone{display:block}
+  .hero-grid-2{grid-template-columns:1.15fr .85fr;gap:44px}
+}
+</style>
+</head>
+<body data-bg="solid">
+
+<!-- ============ VÁLASZTÓ ============ -->
+<div class="picker">
+  <div class="wrap">
+    <div class="pgroup"><span class="lab">Fejléc</span>
+      <button class="opt" data-set="hdr" data-val="a">A · Teljes (menüvel)</button>
+      <button class="opt" data-set="hdr" data-val="b">B · Minimál</button>
+      <button class="opt" data-set="hdr" data-val="c">C · Középső logó</button>
+    </div>
+    <div class="pgroup"><span class="lab">Hero</span>
+      <button class="opt" data-set="hero" data-val="1">1 · Szöveg + kártya</button>
+      <button class="opt" data-set="hero" data-val="2">2 · Középre igazított</button>
+      <button class="opt" data-set="hero" data-val="3">3 · Szöveg + űrlap</button>
+      <button class="opt" data-set="hero" data-val="4">4 · Szöveg + fotó</button>
+    </div>
+    <div class="pgroup"><span class="lab">Háttér</span>
+      <button class="opt" data-set="bg" data-val="solid">Egyszínű</button>
+      <button class="opt" data-set="bg" data-val="white">Fehér</button>
+      <button class="opt" data-set="bg" data-val="gradient">Színátmenet</button>
+      <button class="opt" data-set="bg" data-val="dots">Finom pöttyök</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FEJLÉC VÁLTOZATOK ================= -->
+<!-- A: teljes -->
+<div id="hdr-a" class="hdr-variant">
+  <div class="topbar"><div class="wrap">
+    <div style="display:flex;gap:20px;align-items:center">
+      <span class="tb-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>XI. kerület <b>+ 30 km</b></span>
+      <span class="tb-item tb-hide"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>H–Szo <b>7:00–20:00</b></span>
+    </div>
+    <span class="tb-item"><span class="dot"></span> Ma is elérhető</span>
+  </div></div>
+  <header class="site"><div class="wrap hdr">
+    <a href="#" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="#35b6ef"/><path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/></svg></span><span><span class="brand-name">JÁNOS</span><span class="brand-sub">Vízszerelő · Duguláselhárítás</span></span></a>
+    <nav class="navlinks"><a href="#">Mi a gond?</a><a href="#">Szolgáltatások</a><a href="#">Vélemények</a><a href="#">Körzet</a><a href="#">GYIK</a></nav>
+    <div class="hdr-right">
+      <a href="#" class="hdr-phone"><span class="lbl">Hívj most</span><span class="num">+36 70 123 4567</span></a>
+      <a href="#" class="btn btn-call btn-sm"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívás</a>
+    </div>
+  </div></header>
+</div>
+
+<!-- B: minimál -->
+<div id="hdr-b" class="hdr-variant hidden">
+  <header class="site"><div class="wrap hdr">
+    <a href="#" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="#35b6ef"/><path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/></svg></span><span><span class="brand-name">JÁNOS</span><span class="brand-sub">Vízszerelő · Duguláselhárítás</span></span></a>
+    <div class="hdr-right">
+      <a href="#" class="hdr-phone"><span class="lbl">Hívj most</span><span class="num">+36 70 123 4567</span></a>
+      <a href="#" class="btn btn-call btn-sm"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívás most</a>
+    </div>
+  </div></header>
+</div>
+
+<!-- C: középső logó -->
+<div id="hdr-c" class="hdr-variant hidden">
+  <header class="site"><div class="wrap hdr">
+    <nav class="navlinks"><a href="#">Mi a gond?</a><a href="#">Szolgáltatások</a><a href="#">Vélemények</a></nav>
+    <a href="#" class="brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="#35b6ef"/><path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/></svg></span><span><span class="brand-name">JÁNOS</span><span class="brand-sub">Vízszerelő</span></span></a>
+    <div class="hdr-right">
+      <nav class="navlinks right"><a href="#">Körzet</a><a href="#">GYIK</a></nav>
+      <a href="#" class="btn btn-call btn-sm">Hívás</a>
+    </div>
+  </div></header>
+</div>
+
+<!-- ================= HERO VÁLTOZATOK ================= -->
+<!-- 1: szöveg + kártya -->
+<section id="hero-1" class="hero hero-variant">
+  <div class="wrap hero-grid-2">
+    <div>
+      <div class="hero-pills"><span class="pill"><span class="g"></span>Ma is elérhető</span><span class="pill">~50 év tapasztalat</span></div>
+      <h1 class="hero-h">Nem kell tudnod, mi a baj.<br>Elég, ha elmondod, <em>mit látsz</em>.</h1>
+      <p class="hero-sub">Hívj fel, mondd el, mit tapasztalsz. Ha telefonon megoldható, megmondom. Ha ki kell menni, megbeszéljük.</p>
+      <div class="hero-cta"><a href="#" class="btn btn-call btn-lg">Hívom Jánost</a><a href="#" class="btn btn-ghost btn-lg">Milyen hibákkal hívhatlak?</a></div>
+      <div class="hero-trust"><span><b>~50 év</b> tapasztalat</span><span><b>358</b> vélemény · <b>4,9</b></span><span>XI. kerület <b>+ 30 km</b></span></div>
+    </div>
+    <div class="hero-card">
+      <div class="ph"><div class="avail"><span class="g"></span>Ma is elérhető</div><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="currentColor"/></svg></div>
+      <div class="cbody"><div class="stars">★★★★★</div><div class="who">János, vízszerelő</div><div class="rev">4,9 · 358 vélemény</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2: középre igazított -->
+<section id="hero-2" class="hero hero-variant hidden">
+  <div class="wrap hero-center">
+    <div class="hero-pills"><span class="pill"><span class="g"></span>Ma is elérhető</span><span class="pill">XI. kerület + 30 km</span><span class="pill">4,9 ★ · 358 vélemény</span></div>
+    <h1 class="hero-h">Nem kell tudnod, mi a baj.<br>Elég, ha elmondod, <em>mit látsz</em>.</h1>
+    <p class="hero-sub">Hívj fel, mondd el, mit tapasztalsz. Ha telefonon megoldható, megmondom. Ha ki kell menni, megbeszéljük — felesleges körök nélkül.</p>
+    <div class="hero-cta"><a href="#" class="btn btn-call btn-lg">Hívom Jánost · +36 70 123 4567</a><a href="#" class="btn btn-ghost btn-lg">Milyen hibákkal hívhatlak?</a></div>
+    <div class="hero-trust"><span><b>~50 év</b> tapasztalat</span><span><b>358</b> vélemény · <b>4,9</b></span><span>XI. kerület <b>+ 30 km</b></span></div>
+  </div>
+</section>
+
+<!-- 3: szöveg + űrlap -->
+<section id="hero-3" class="hero hero-variant hidden">
+  <div class="wrap hero-grid-2">
+    <div>
+      <div class="hero-pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+      <h1 class="hero-h">Írd le pár szóban,<br><em>mit tapasztalsz</em> — visszahívlak.</h1>
+      <p class="hero-sub">Nem kell szaknyelven megfogalmaznod. Hagyd itt az elérhetőséged, és felhívlak.</p>
+      <div class="hero-trust"><span><b>~50 év</b> tapasztalat</span><span><b>358</b> vélemény · <b>4,9</b></span><span>XI. kerület <b>+ 30 km</b></span></div>
+    </div>
+    <form class="hero-form" onsubmit="return false">
+      <h3>Visszahívást kérek</h3><p class="sub">Hagyd itt az elérhetőséged, hívunk.</p>
+      <label>Név</label><input type="text" placeholder="Kovács Anita">
+      <label>Telefon</label><input type="tel" placeholder="+36 30 ...">
+      <label>Mi a gond?</label><textarea placeholder="Pl.: nem folyik le a mosdó..."></textarea>
+      <button class="btn btn-call">Visszahívást kérek</button>
+    </form>
+  </div>
+</section>
+
+<!-- 4: szöveg + fotó -->
+<section id="hero-4" class="hero hero-variant hidden">
+  <div class="wrap hero-grid-2">
+    <div>
+      <div class="hero-pills"><span class="pill"><span class="g"></span>Ma is elérhető</span><span class="pill">~50 év tapasztalat</span></div>
+      <h1 class="hero-h">Egy ember, akit<br><em>tényleg elérsz</em>.</h1>
+      <p class="hero-sub">Nem call center, nem futószalag. Engem hívsz, én megyek ki, én oldom meg. XI. kerület és 30 km-es körzet.</p>
+      <div class="hero-cta"><a href="#" class="btn btn-call btn-lg">Hívom Jánost</a><a href="#" class="btn btn-ghost btn-lg">Szolgáltatások</a></div>
+      <div class="hero-trust"><span><b>358</b> vélemény · <b>4,9</b></span><span>XI. kerület <b>+ 30 km</b></span></div>
+    </div>
+    <div class="hero-photo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="currentColor"/></svg><div class="tag">János, vízszerelő</div></div>
+  </div>
+</section>
+
+<!-- ================= szekció a háttéren ================= -->
+<section class="blk">
+  <div class="wrap">
+    <span class="kicker">Mi a gond?</span>
+    <h2 class="sec-t">Így néz ki a háttér a kártyák mögött.</h2>
+    <p class="sec-lead">A háttér-opció itt látszik igazán — a szekciók és kártyák mögött.</p>
+    <div class="cards">
+      <div class="pcard"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16M8 8v8m8-8v8M4 16h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><h3>Nem folyik le</h3><p>Lassan vagy egyáltalán nem megy le a víz.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="pcard"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>WC-dugulás</h3><p>Nem öblít rendesen, felkúszik a víz.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="pcard"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c0 5-5 7-5 11a5 5 0 0 0 10 0c0-4-5-6-5-11Z" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>Csöpög a csap</h3><p>Folyamatosan csöpög vagy nem zár.</p><span class="go">Hívom emiatt →</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="df">Világos ég paletta · fejléc + hero + háttér szabadon kombinálható</footer>
+
+<script>
+const state = { hdr:'a', hero:'1', bg:'solid' };
+function apply(){
+  document.querySelectorAll('.hdr-variant').forEach(el => el.classList.toggle('hidden', el.id !== 'hdr-'+state.hdr));
+  document.querySelectorAll('.hero-variant').forEach(el => el.classList.toggle('hidden', el.id !== 'hero-'+state.hero));
+  document.body.dataset.bg = state.bg;
+  document.querySelectorAll('.opt').forEach(b => b.classList.toggle('active', state[b.dataset.set] === b.dataset.val));
+}
+document.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => { state[b.dataset.set] = b.dataset.val; apply(); }));
+apply();
+</script>
+</body>
+</html>

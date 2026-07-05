@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero – mobil elrendezés verziók | Gelesz János</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#002AFF; --cta-dark:#0020c9;
+  --navy:#0a2540; --cyan:#35b6ef;
+  --hero-bg:linear-gradient(160deg,#d6e9fb,#eaf3fc 55%,#f6faff);
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);color:var(--body);background:#e7edf5;line-height:1.5;font-size:16px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);color:var(--ink);line-height:1.05;font-weight:800}
+
+.page-head{background:var(--navy);color:#dbe8f4;padding:26px 22px}
+.page-head h1{color:#fff;font-size:24px}
+.page-head p{color:#9fb6cd;font-family:var(--font-mono);font-size:13px;margin-top:6px}
+
+.gallery{display:flex;flex-wrap:wrap;gap:30px;padding:34px 22px;justify-content:center}
+.item{width:340px}
+.item .lab{display:flex;align-items:baseline;gap:9px;margin-bottom:12px}
+.item .lab .no{font-family:var(--font-display);font-weight:900;font-size:16px;color:#fff;background:var(--cta);width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none}
+.item .lab .nm{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--ink)}
+
+/* telefon keret */
+.phone{border:11px solid #0b1622;border-radius:40px;background:#0b1622;box-shadow:0 30px 60px -28px rgba(10,37,64,.6);overflow:hidden;position:relative}
+.phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:120px;height:22px;background:#0b1622;border-radius:0 0 14px 14px;z-index:20}
+.screen{background:var(--bg);border-radius:29px;overflow-y:auto;height:660px;position:relative}
+.screen::-webkit-scrollbar{width:0}
+
+/* mobil fejléc */
+.mh{display:flex;align-items:center;justify-content:space-between;padding:14px 15px 12px;position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+.mh .bn{font-family:var(--font-display);font-weight:900;font-size:18px;color:var(--ink);letter-spacing:.01em}
+.mh .bn small{display:block;font-family:var(--font-mono);font-weight:500;font-size:9px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-top:2px}
+.mh .r{display:flex;gap:8px;align-items:center}
+.mh .cbtn{width:40px;height:40px;border-radius:11px;background:var(--cta);display:grid;place-items:center;color:#fff}
+.mh .cbtn svg{width:19px;height:19px}
+.mh .burg{width:40px;height:40px;border-radius:11px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--navy)}
+.mh .burg svg{width:20px;height:20px}
+
+/* hero építőkövek */
+.hero{background:var(--hero-bg);padding:18px 16px 22px}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10.5px;font-weight:600;color:var(--navy);background:rgba(0,42,255,.08);border:1px solid rgba(0,42,255,.18);padding:6px 10px;border-radius:999px}
+.pill .g{width:6px;height:6px;border-radius:50%;background:#16a34a}
+.h1{font-family:var(--font-display);font-weight:900;font-size:25px;line-height:1.12;color:var(--ink);letter-spacing:-.01em}
+.h1 em{font-style:normal;color:var(--cta)}
+.sub{font-size:14px;color:var(--body);margin-top:9px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:12px;font-family:var(--font-display);font-weight:700;font-size:15.5px;border:0;cursor:pointer}
+.btn svg{width:18px;height:18px}
+.btn.call{background:var(--cta);color:#fff;box-shadow:0 8px 18px -8px rgba(0,42,255,.5)}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--navy)}
+.btns{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.photo{position:relative;border-radius:16px;overflow:hidden;border:6px solid #fff;box-shadow:0 20px 44px -24px rgba(10,37,64,.5);aspect-ratio:4/5}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 14%}
+.photo .tag{position:absolute;left:12px;bottom:12px;background:rgba(10,37,64,.72);color:#fff;padding:6px 11px;border-radius:9px;font-family:var(--font-display);font-weight:700;font-size:12.5px}
+.seal{position:absolute;right:-8px;top:-8px;width:60px;height:60px;border-radius:50%;background:var(--cta);color:#fff;display:grid;place-content:center;text-align:center;font-family:var(--font-display);font-weight:900;font-size:19px;line-height:.85;border:3px solid #fff;box-shadow:0 8px 18px -6px rgba(0,42,255,.6)}
+.seal span{display:block;font-size:7px;margin-top:2px;text-transform:uppercase}
+.trust{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:12.5px;color:var(--body)}
+.trust b{color:var(--ink)}.trust .st{color:#f5a623}
+.form{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;margin-top:14px;box-shadow:0 16px 40px -28px rgba(10,37,64,.4)}
+.form h3{font-size:16px;margin-bottom:8px}
+.form input{width:100%;font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:8px;outline:none}
+.form .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:12px}
+.mini .st{color:#f5a623;font-size:12px}
+.mini p{font-size:12.5px;color:var(--ink);margin:4px 0 6px;line-height:1.45}
+.mini .by{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.ava{display:flex;align-items:center;gap:11px}
+.ava .c{width:56px;height:56px;border-radius:50%;overflow:hidden;border:3px solid #fff;box-shadow:0 8px 20px -10px rgba(10,37,64,.5);flex:none}
+.ava .c img{width:100%;height:100%;object-fit:cover;object-position:50% 14%}
+.ava .nm{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--ink)}
+.ava .rl{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{font-family:var(--font-mono);font-size:11px;color:var(--navy);background:var(--brand-soft);border:1px solid #cfe6f8;border-radius:7px;padding:5px 9px}
+details.acc{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+details.acc summary{list-style:none;padding:13px 15px;font-family:var(--font-display);font-weight:700;font-size:14.5px;color:var(--ink);display:flex;justify-content:space-between;cursor:pointer}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc .in{padding:0 15px 15px}
+.overlay{position:relative;border-radius:16px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end}
+.overlay img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.overlay .v{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,37,64,.15),rgba(10,37,64,.85))}
+.overlay .in{position:relative;padding:16px;color:#fff}
+.overlay .in .h1{color:#fff}.overlay .in .h1 em{color:#7fa8ff}
+.overlay .in .sub{color:#d7e3f2}
+.callbar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:9px 12px;display:flex;align-items:center;gap:10px;z-index:10}
+.callbar .i{flex:1;min-width:0}.callbar .i .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.callbar .i .n{font-family:var(--font-mono);font-weight:600;font-size:14px;color:var(--ink)}
+.callbar .btn{width:auto;padding:11px 18px}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Hero – mobil elrendezés verziók</h1>
+  <p>Gelesz János · telefonos nézet · 8 változat — a gépes elrendezés változatlan marad.</p>
+</div>
+
+<div class="gallery">
+
+  <!-- 1 -->
+  <div class="item"><div class="lab"><span class="no">1</span><span class="nm">Klasszikus stack</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero">
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+      <div class="h1"><em>Vízszerelés</em> és duguláselhárítás — ahogy elvárnád.</div>
+      <div class="sub">Gelesz János a XI. kerületben és 30 km-es körzetben. Csöpög, dugul, szivárog? Hívj.</div>
+      <div class="photo" style="margin-top:14px"><span class="seal">50<span>év</span></span><img src="images/janos-portre.png" alt=""><span class="tag">Gelesz János</span></div>
+      <div class="mini"><div class="st">★★★★★</div><p>„Negyedórán belül visszahívott, másnapra megoldotta."</p><div class="by">— Anita, XI. kerület</div></div>
+      <div class="btns"><a class="btn call">Felveszem a kapcsolatot</a><a class="btn ghost">Vagy hívj most</a></div>
+      <div class="form"><h3>Visszahívást kérek</h3><div class="row"><input placeholder="Név"><input placeholder="Telefon"></div><input placeholder="Mi a gond?"><a class="btn call" style="margin-top:4px">Küldés</a></div>
+    </div>
+  </div></div></div>
+
+  <!-- 2 -->
+  <div class="item"><div class="lab"><span class="no">2</span><span class="nm">CTA elöl</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero">
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span><span class="pill">~50 év</span></div>
+      <div class="h1"><em>Vízszerelés</em> és duguláselhárítás a XI. kerületben.</div>
+      <div class="sub">Csöpög, dugul, szivárog? Hívj, és megoldom.</div>
+      <div class="btns"><a class="btn call">Hívom Jánost most</a><a class="btn ghost">Visszahívást kérek</a></div>
+      <div class="trust"><span class="st">★★★★★</span><span><b>4,9</b> · 358</span><span><b>50 év</b></span><span>XI+30km</span></div>
+      <div class="photo" style="margin-top:14px"><img src="images/janos-portre.png" alt=""><span class="tag">Gelesz János</span></div>
+    </div>
+  </div></div></div>
+
+  <!-- 3 -->
+  <div class="item"><div class="lab"><span class="no">3</span><span class="nm">Kép háttér overlay</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero">
+      <div class="overlay"><img src="images/janos-portre.png" alt=""><span class="v"></span><div class="in"><div class="pills"><span class="pill" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff"><span class="g"></span>Ma is elérhető</span></div><div class="h1"><em>Vízszerelés</em> a XI. kerületben.</div><div class="sub">Dugulás, csőtörés, csöpögő csap — megoldom.</div></div></div>
+      <div class="btns"><a class="btn call">Felveszem a kapcsolatot</a><a class="btn ghost">Vagy hívj most</a></div>
+      <div class="trust"><span class="st">★★★★★</span><span><b>4,9</b> · 358 értékelés</span><span><b>50 év</b></span></div>
+    </div>
+  </div></div></div>
+
+  <!-- 4 -->
+  <div class="item"><div class="lab"><span class="no">4</span><span class="nm">Minimál hívás-fókusz</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero" style="padding-bottom:26px">
+      <div class="ava"><div class="c"><img src="images/janos-portre.png" alt=""></div><div><div class="nm">Gelesz János</div><div class="rl">Vízszerelő · ~50 év</div></div></div>
+      <div class="h1" style="margin-top:16px">Dugulás? Csőtörés?<br><em>Megoldom.</em></div>
+      <div class="sub">XI. kerület + 30 km. Hívj, és pár szóból is értem, mi a gond.</div>
+      <div class="btns"><a class="btn call" style="padding:17px;font-size:17px">Hívás: +36 70 123 4567</a></div>
+      <div class="trust" style="justify-content:center"><span class="st">★★★★★</span><span><b>4,9</b> · 358 értékelés a tudjukki.hu-n</span></div>
+    </div>
+  </div></div></div>
+
+  <!-- 5 -->
+  <div class="item"><div class="lab"><span class="no">5</span><span class="nm">Kompakt kártya</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero">
+      <div class="form" style="margin-top:4px">
+        <div class="ava" style="margin-bottom:12px"><div class="c"><img src="images/janos-portre.png" alt=""></div><div><div class="nm">Gelesz János</div><div class="rl">★ 4,9 · 358 értékelés</div></div></div>
+        <div class="h1"><em>Vízszerelés</em> és duguláselhárítás</div>
+        <div class="sub" style="margin-bottom:12px">XI. kerület + 30 km. Csöpög, dugul? Hívj.</div>
+        <div class="row"><input placeholder="Név"><input placeholder="Telefon"></div><input placeholder="Mi a gond?">
+        <a class="btn call">Felveszem a kapcsolatot</a>
+        <a class="btn ghost" style="margin-top:8px">Vagy hívj most</a>
+      </div>
+    </div>
+  </div></div></div>
+
+  <!-- 6 -->
+  <div class="item"><div class="lab"><span class="no">6</span><span class="nm">Fotó + űrlap lenyíló</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero">
+      <div class="photo"><span class="seal">50<span>év</span></span><img src="images/janos-portre.png" alt=""><span class="tag">Gelesz János</span></div>
+      <div class="h1" style="margin-top:14px"><em>Vízszerelés</em> és duguláselhárítás</div>
+      <div class="sub">XI. kerület + 30 km. Csöpög, dugul, szivárog? Hívj, és megoldom.</div>
+      <div class="btns"><a class="btn call">Hívás most</a></div>
+      <details class="acc"><summary>Inkább visszahívást kérek ▾</summary><div class="in"><div class="row"><input placeholder="Név"><input placeholder="Telefon"></div><input placeholder="Mi a gond?"><a class="btn call">Küldés</a></div></details>
+    </div>
+  </div></div></div>
+
+  <!-- 7 -->
+  <div class="item"><div class="lab"><span class="no">7</span><span class="nm">Trust elöl + chipek</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="cbtn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg></a></div></div>
+    <div class="hero">
+      <div class="trust" style="border:0;padding:0;margin:0 0 12px"><span class="st">★★★★★</span><span><b>4,9</b> · 358</span><span><b>50 év</b></span><span>Számla + garancia</span></div>
+      <div class="h1"><em>Vízszerelés</em> és duguláselhárítás — ahogy elvárnád.</div>
+      <div class="sub">Gelesz János · XI. kerület + 30 km.</div>
+      <div class="chips"><span>Duguláselhárítás</span><span>Csőjavítás</span><span>Csaptelep</span><span>WC</span></div>
+      <div class="btns"><a class="btn call">Felveszem a kapcsolatot</a><a class="btn ghost">Vagy hívj most</a></div>
+      <div class="photo" style="margin-top:14px"><img src="images/janos-portre.png" alt=""><span class="tag">Gelesz János</span></div>
+    </div>
+  </div></div></div>
+
+  <!-- 8 -->
+  <div class="item"><div class="lab"><span class="no">8</span><span class="nm">Sticky alsó hívássáv</span></div>
+  <div class="phone"><span class="notch"></span><div class="screen">
+    <div class="mh"><span class="bn">GELESZ JÁNOS<small>Vízszerelő</small></span><div class="r"><a class="burg"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></a></div></div>
+    <div class="hero" style="padding-bottom:20px">
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+      <div class="h1"><em>Vízszerelés</em> és duguláselhárítás</div>
+      <div class="sub">XI. kerület + 30 km. Csöpög, dugul, szivárog? Hívj, és megoldom.</div>
+      <div class="photo" style="margin-top:14px"><span class="seal">50<span>év</span></span><img src="images/janos-portre.png" alt=""><span class="tag">Gelesz János</span></div>
+      <div class="form"><h3>Visszahívást kérek</h3><div class="row"><input placeholder="Név"><input placeholder="Telefon"></div><input placeholder="Mi a gond?"><a class="btn call">Küldés</a></div>
+    </div>
+    <div class="callbar"><div class="i"><div class="l">Hívd Jánost</div><div class="n">+36 70 123 4567</div></div><a class="btn call">Hívás</a></div>
+  </div></div></div>
+
+</div>
+</body>
+</html>

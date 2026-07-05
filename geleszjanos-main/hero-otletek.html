@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero elrendezés-ötletek | Gelesz János</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#f9531e; --cta-dark:#e0430f;
+  --navy:#0a2540; --cyan:#35b6ef;
+  --hero-ink:#0a2540; --hero-sub:#3d5f7e; --hero-em:#1183d6;
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+.hidden{display:none !important}
+
+/* ===== választó ===== */
+.picker{position:sticky;top:0;z-index:200;background:#0b1622;color:#dbe8f4;border-bottom:1px solid rgba(255,255,255,.1);padding:12px 0}
+.pgroup{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pgroup .lab{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#8fb0cd;min-width:130px}
+.opt{cursor:pointer;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#eaf3fb;border-radius:9px;padding:7px 13px;font-family:var(--font-display);font-weight:700;font-size:14px}
+.opt:hover{background:rgba(255,255,255,.1)}
+.opt.active{border-color:#35b6ef;background:rgba(53,182,239,.18);color:#fff}
+
+/* ===== gombok ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:16px;padding:14px 22px;border-radius:12px;border:0;cursor:pointer;line-height:1;white-space:nowrap;transition:transform .15s,background .2s,border-color .2s}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-sm{padding:11px 17px;font-size:15px}
+.btn-call{background:var(--cta);color:#fff;box-shadow:0 8px 22px -6px color-mix(in srgb,var(--cta) 55%,transparent);width:100%}
+.btn-call.auto{width:auto}
+.btn-call:hover{background:var(--cta-dark);transform:translateY(-2px)}
+.btn-quote{background:#fff;color:var(--navy);border:1.6px solid var(--line)}
+.btn-quote:hover{border-color:var(--brand);color:var(--brand)}
+
+/* ===== FEJLÉC #3 (középen a név, két oldalt menü) ===== */
+.mark{width:44px;height:44px;border-radius:12px;background:var(--navy);display:grid;place-items:center;flex:none}
+.mark svg{width:26px;height:26px}
+.bname{font-family:var(--font-display);font-weight:900;color:var(--ink);font-size:30px;letter-spacing:.005em}
+.bsub{font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:4px;font-weight:600}
+.nav{display:flex;align-items:center;gap:2px}
+.nav a{font-family:var(--font-display);font-weight:600;font-size:15.5px;color:var(--navy);padding:8px 12px;border-radius:8px;opacity:.82}
+.nav a:hover{opacity:1;background:var(--brand-soft);color:var(--brand)}
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.hdr3{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;height:88px}
+.hdr3 .brand{display:flex;flex-direction:column;gap:5px;text-align:center;justify-self:center}
+.hdr3 .right{justify-self:end;display:flex;align-items:center;gap:12px}
+@media(max-width:900px){ .hdr3{grid-template-columns:auto 1fr;height:70px} .hdr3 .nav{display:none} .hdr3 .brand{flex-direction:row;text-align:left;justify-self:start;align-items:center;gap:10px} .hdr3 .bname{font-size:22px} .hdr3 .bsub{display:none} }
+
+/* ===== HERO közös ===== */
+.hero{position:relative;overflow:hidden;padding:52px 0;color:var(--hero-ink);background:linear-gradient(120deg,#d6e9fb,#eaf3fc 55%,#f6faff)}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--navy);background:rgba(17,131,214,.09);border:1px solid rgba(17,131,214,.2);padding:8px 13px;border-radius:999px}
+.pill .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+h1.hh{font-size:clamp(28px,4vw,42px);color:var(--hero-ink);line-height:1.09;letter-spacing:-.015em}
+h1.hh em{font-style:normal;color:var(--hero-em)}
+.hsub{font-size:clamp(15px,1.5vw,17.5px);color:var(--hero-sub);max-width:520px;margin-top:15px}
+.hpoints{list-style:none;margin-top:18px;display:grid;gap:9px}
+.hpoints li{display:flex;gap:9px;align-items:flex-start;font-size:15px;color:var(--ink)}
+.hpoints svg{width:19px;height:19px;color:#16a34a;flex:none;margin-top:2px}
+.hcta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+/* fotó */
+.photo{border-radius:18px;overflow:hidden;position:relative;background:linear-gradient(160deg,#123c66,#081c33);box-shadow:0 24px 60px -22px rgba(10,37,64,.45)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.photo .tag{position:absolute;left:14px;bottom:14px;background:rgba(10,37,64,.72);backdrop-filter:blur(6px);color:#fff;padding:8px 14px;border-radius:11px;font-family:var(--font-display);font-weight:700;font-size:15px}
+.photo .avail{position:absolute;left:14px;top:14px;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.95);padding:6px 11px;border-radius:999px;color:var(--ink);font-size:11.5px;font-weight:600}
+.photo .avail .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+/* fehér keret a képnek */
+.photo.framed{border:9px solid #fff;box-shadow:0 24px 60px -22px rgba(10,37,64,.45), 0 0 0 1px var(--line)}
+.photo.framed .tag{left:20px;bottom:20px}
+
+/* űrlap */
+.form{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -24px rgba(10,37,64,.35);padding:22px 24px}
+.form h3{font-size:19px;margin-bottom:2px}
+.form .s{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.form label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.form input,.form textarea{width:100%;font-family:var(--font-body);font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px 12px;outline:none;margin-bottom:10px;resize:none}
+.form input:focus,.form textarea:focus{border-color:var(--brand)}
+.form .priv{font-size:10.5px;color:var(--muted);margin-top:8px;text-align:center}
+.trustline{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 11px;
+  margin-top:15px;padding-top:14px;border-top:1px solid var(--line);font-size:15.5px;color:var(--body)}
+.trustline b{color:var(--ink);font-weight:700}
+.trustline .tl-stars{color:#f5a623;letter-spacing:1px;font-size:16.5px}
+.trustline .tl-sep{color:var(--muted)}
+
+/* ===== hero kidolgozottság (V3) ===== */
+#v3 .wrap{position:relative;z-index:1}
+#v3::before,#v3::after{content:"";position:absolute;border-radius:50%;filter:blur(22px);pointer-events:none;z-index:0}
+#v3::before{top:-120px;right:-70px;width:420px;height:420px;background:radial-gradient(circle,rgba(53,182,239,.28),transparent 70%)}
+#v3::after{bottom:-150px;left:-110px;width:380px;height:380px;background:radial-gradient(circle,rgba(17,131,214,.16),transparent 70%)}
+.left-col{display:flex;flex-direction:column;gap:16px}
+.photo-wrap{position:relative}
+.photo-wrap .seal{position:absolute;right:-12px;top:-12px;width:84px;height:84px;border-radius:50%;background:var(--cta);color:#fff;
+  display:grid;place-content:center;text-align:center;font-family:var(--font-display);font-weight:900;font-size:27px;line-height:.85;
+  box-shadow:0 12px 26px -8px rgba(249,83,30,.6);border:4px solid #fff;transform:rotate(7deg);z-index:2}
+.photo-wrap .seal span{display:block;font-size:9px;font-weight:700;letter-spacing:.04em;margin-top:4px;text-transform:uppercase}
+.mini-rev{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 18px;box-shadow:0 14px 40px -28px rgba(10,37,64,.5)}
+.mini-rev .mr-stars{color:#f5a623;letter-spacing:1px;font-size:14px}
+.mini-rev p{font-size:14.5px;color:var(--ink);margin:6px 0 8px;line-height:1.5}
+.mini-rev .mr-by{font-family:var(--font-mono);font-size:12.5px;color:var(--muted)}
+.guarantees{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.guarantees span{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+.guarantees svg{width:15px;height:15px;color:#16a34a;flex:none}
+.resp{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;color:#0f7a3d;background:#e8f6ec;border:1px solid #bfe6cc;border-radius:999px;padding:6px 12px;margin-bottom:12px}
+.resp .rdot{width:8px;height:8px;border-radius:50%;background:#16a34a;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.4)}70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+
+/* elrendezés-rácsok */
+.h-a{display:grid;grid-template-columns:1fr;gap:26px;align-items:start}
+.h-b{display:grid;grid-template-columns:1fr;gap:30px;align-items:start}
+.card-stack{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px -22px rgba(10,37,64,.4);max-width:380px;margin:0 auto}
+.card-stack .photo{border-radius:0;box-shadow:none;aspect-ratio:16/10}
+.card-stack .form{border:0;border-radius:0;box-shadow:none;border-top:1px solid var(--line)}
+.h-top{max-width:820px;margin:0 auto 30px;text-align:center}
+.h-top .pills,.h-top .hcta{justify-content:center}
+.h-top .hsub{margin-left:auto;margin-right:auto}
+.overlay-wrap{position:relative;border-radius:20px;overflow:hidden;min-height:460px;display:flex;align-items:center;
+  background:linear-gradient(90deg,rgba(10,37,64,.9),rgba(10,37,64,.55) 55%,rgba(10,37,64,.15)),url('images/janos-portre.png');
+  background-size:cover;background-position:center 20%}
+.overlay-card{margin:24px;background:rgba(255,255,255,.97);border-radius:18px;padding:26px;max-width:440px;box-shadow:0 30px 70px -30px rgba(0,0,0,.5)}
+
+@media(min-width:920px){
+  .h-a{grid-template-columns:1fr 1fr 1fr;gap:24px}                 /* V1 három oszlop */
+  .h-b.copy-card{grid-template-columns:1.1fr .9fr}                 /* V2 szöveg + kártya */
+  .h-b.photo-copy{grid-template-columns:.9fr 1.1fr}               /* V3 fotó + szöveg/form */
+  .h-b.bottom-two{grid-template-columns:1fr 1fr}                  /* V4 alsó két oszlop */
+  .photo.tall{aspect-ratio:auto;height:100%;min-height:420px}
+}
+.photo.v1{aspect-ratio:3/4}
+.photo.v4{aspect-ratio:4/3}
+</style>
+</head>
+<body>
+
+<div class="picker"><div class="wrap"><div class="pgroup">
+  <span class="lab">Hero elrendezés</span>
+  <button class="opt" data-v="1">1 · Három oszlop</button>
+  <button class="opt" data-v="2">2 · Szöveg + fotó-űrlap kártya</button>
+  <button class="opt" data-v="3">3 · Fotó bal · szöveg+űrlap</button>
+  <button class="opt" data-v="4">4 · Széles szöveg + lenti kártyák</button>
+  <button class="opt" data-v="5">5 · Fotó háttér · űrlap-kártya</button>
+</div></div></div>
+
+<!-- ===== FEJLÉC #3 ===== -->
+<header class="site"><div class="wrap hdr3">
+  <nav class="nav"><a href="#">Szolgáltatások</a><a href="#">Rólam</a><a href="#">Vélemények</a></nav>
+  <a href="#" class="brand"><span class="bname">GELESZ JÁNOS</span><span class="bsub">Vízszerelő · Duguláselhárítás</span></a>
+  <div class="right"><nav class="nav"><a href="#">Körzet</a><a href="#">GYIK</a></nav><a href="#" class="btn btn-quote btn-sm">Ajánlatkérés</a><a href="#" class="btn btn-call auto btn-sm">Hívás</a></div>
+</div></header>
+
+<!-- ============ V1: három oszlop ============ -->
+<section class="hero hero-v" id="v1">
+  <div class="wrap h-a">
+    <div>
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+      <h1 class="hh">Vízszerelés és <em>duguláselhárítás</em> a XI. kerületben.</h1>
+      <p class="hsub">Csőtörés, eldugult lefolyó, csöpögő csap vagy WC-hiba? Gelesz János ~50 év tapasztalattal, gyorsan és tisztán megoldja — a XI. kerületben és 30 km-es körzetben.</p>
+      <ul class="hpoints">
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Duguláselhárítás, csőjavítás, csaptelep, WC</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>XI. kerület + 30 km · H–Szo 7:00–20:00</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>4,9 ★ · 358 vélemény</li>
+      </ul>
+    </div>
+    <div class="photo v1"><div class="avail"><span class="g"></span>Ma is elérhető</div><img src="images/janos-portre.png" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János, vízszerelő</div></div>
+    <form class="form" onsubmit="return false">
+      <h3>Visszahívást kérek</h3><p class="s">Hagyd itt az elérhetőséged, hívlak.</p>
+      <label>Név</label><input placeholder="Kovács Anita">
+      <label>Telefon</label><input type="tel" placeholder="+36 30 ...">
+      <label>Mi a gond?</label><textarea placeholder="Pl.: nem folyik le a mosdó..."></textarea>
+      <button class="btn btn-call">Visszahívást kérek</button>
+      <p class="priv">Az adataidat csak a visszahíváshoz használjuk.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ V2: szöveg bal · fotó+űrlap kártya jobb ============ -->
+<section class="hero hero-v hidden" id="v2">
+  <div class="wrap h-b copy-card">
+    <div>
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span><span class="pill">~50 év tapasztalat</span></div>
+      <h1 class="hh">Nem kell tudnod, mi a baj — <em>elég, ha elmondod, mit látsz</em>.</h1>
+      <p class="hsub">Vízszerelés és duguláselhárítás a XI. kerületben és 30 km-es körzetben. Csöpög, dugul, szivárog? Hívj, vagy kérj visszahívást — pár szóból is értem, mi a gond.</p>
+      <ul class="hpoints">
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Duguláselhárítás · csőjavítás · csaptelep · WC</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Előbb telefonon tisztázzuk — felesleges kiszállás nélkül</li>
+      </ul>
+      <div class="hcta"><a href="#" class="btn btn-call auto"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívom Jánost</a><a href="#" class="btn btn-quote">Ajánlatkérés</a></div>
+    </div>
+    <div class="card-stack">
+      <div class="photo"><div class="avail"><span class="g"></span>Ma is elérhető</div><img src="images/janos-portre.png" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János</div></div>
+      <form class="form" onsubmit="return false">
+        <h3>Visszahívást kérek</h3><p class="s">Hagyd itt az elérhetőséged, hívlak.</p>
+        <label>Név</label><input placeholder="Kovács Anita">
+        <label>Telefon</label><input type="tel" placeholder="+36 30 ...">
+        <label>Mi a gond?</label><textarea placeholder="Pl.: eldugult a WC..."></textarea>
+        <button class="btn btn-call">Visszahívást kérek</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V3: fotó bal · szöveg + űrlap jobb ============ -->
+<section class="hero hero-v hidden" id="v3">
+  <div class="wrap h-b photo-copy">
+    <div class="left-col">
+      <div class="photo-wrap">
+        <div class="photo tall framed"><img src="images/janos-portre.png" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János, vízszerelő</div></div>
+        <div class="seal">50<span>év tapasztalat</span></div>
+      </div>
+      <div class="mini-rev">
+        <div class="mr-stars">★★★★★</div>
+        <p>„Felhívtam, negyedórán belül visszahívott, másnapra megoldotta a dugulást. Korrekt, tiszta munka."</p>
+        <div class="mr-by">— Anita, XI. kerület</div>
+      </div>
+    </div>
+    <div>
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+      <h1 class="hh"><em>Vízszerelés</em> és duguláselhárítás — ahogy elvárnád.</h1>
+      <p class="hsub">Gelesz János a XI. kerületben és 30 km-es körzetben. Csöpög, dugul, szivárog? Hívj, és megoldom.</p>
+      <div class="guarantees">
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Kiszállási díjat beszámítom</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Számlát adok</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Garancia a munkára</span>
+      </div>
+      <form class="form" onsubmit="return false" style="margin-top:18px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label>Név</label><input placeholder="Kovács Anita"></div>
+          <div><label>Telefon</label><input type="tel" placeholder="+36 30 ..."></div>
+        </div>
+        <label>Mi a gond?</label><textarea placeholder="Pl.: csöpög a csap a fürdőben..."></textarea>
+        <button class="btn btn-call">Felveszem a kapcsolatot</button>
+        <a href="tel:+36701234567" class="btn btn-quote" style="width:100%;margin-top:10px">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>
+          Vagy hívj most: +36 70 123 4567
+        </a>
+        <div class="trustline">
+          <span class="tl-stars">★★★★★</span>
+          <span><b>358 értékelés</b> a tudjukki.hu-n</span>
+          <span class="tl-sep">·</span>
+          <span><b>50 év</b> tapasztalat</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V4: széles szöveg fent · lenti kártyák (fotó + űrlap) ============ -->
+<section class="hero hero-v hidden" id="v4">
+  <div class="wrap">
+    <div class="h-top">
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span><span class="pill">XI. kerület + 30 km</span><span class="pill">4,9 ★ · 358 vélemény</span></div>
+      <h1 class="hh">Vízszerelés és duguláselhárítás,<br><em>ahogy egy jó szomszédtól várnád</em>.</h1>
+      <p class="hsub">Gelesz János ~50 év tapasztalattal oldja meg a csőtörést, dugulást, csöpögő csapot és a WC-hibákat — a XI. kerületben és környékén, feleslegesen felszámolt kiszállás nélkül.</p>
+    </div>
+    <div class="h-b bottom-two">
+      <div class="photo v4"><div class="avail"><span class="g"></span>Ma is elérhető</div><img src="images/janos-portre.png" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János, vízszerelő</div></div>
+      <form class="form" onsubmit="return false">
+        <h3>Visszahívást kérek</h3><p class="s">Hagyd itt az elérhetőséged, hívlak — pár szóból is értem, mi a gond.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div><label>Név</label><input placeholder="Kovács Anita"></div>
+          <div><label>Telefon</label><input type="tel" placeholder="+36 30 ..."></div>
+        </div>
+        <label>Mi a gond?</label><textarea placeholder="Pl.: szivárog a cső a mosogató alatt..."></textarea>
+        <button class="btn btn-call">Visszahívást kérek</button>
+        <p class="priv">Az adataidat csak a visszahíváshoz használjuk.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V5: fotó háttérként · űrlap-kártya ============ -->
+<section class="hero hero-v hidden" id="v5">
+  <div class="wrap">
+    <div class="overlay-wrap">
+      <div class="overlay-card">
+        <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+        <h1 class="hh" style="margin-top:4px">Csöpög, dugul, szivárog?<br><em>Megoldom.</em></h1>
+        <p class="hsub" style="margin-bottom:16px">Gelesz János vízszerelő · XI. kerület + 30 km · duguláselhárítás, csőjavítás, csaptelep, WC.</p>
+        <form class="form" onsubmit="return false" style="box-shadow:none;border:0;padding:0">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div><label>Név</label><input placeholder="Kovács Anita"></div>
+            <div><label>Telefon</label><input type="tel" placeholder="+36 30 ..."></div>
+          </div>
+          <label>Mi a gond?</label><textarea placeholder="Pl.: nem öblít a WC..."></textarea>
+          <button class="btn btn-call">Visszahívást kérek</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const opts = document.querySelectorAll('.opt');
+function show(v){
+  document.querySelectorAll('.hero-v').forEach(s => s.classList.toggle('hidden', s.id !== 'v'+v));
+  opts.forEach(o => o.classList.toggle('active', o.dataset.v === v));
+}
+opts.forEach(o => o.addEventListener('click', () => show(o.dataset.v)));
+show('3');
+</script>
+</body>
+</html>

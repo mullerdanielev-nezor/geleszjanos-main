@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gelesz János vízszerelő – Duguláselhárítás, vízszerelés | XI. kerület + 30 km</title>
+<meta name="description" content="Gelesz János vízszerelő a XI. kerületben és 30 km-es körzetben. Duguláselhárítás, csőjavítás, csaptelep, WC. ~50 év tapasztalat, 4,9 ★ 350+ értékelés. Hívj, vagy kérj visszahívást.">
+
+<!--
+  ============================================================
+  CSERÉLENDŐ HELYŐRZŐK élesítés előtt:
+  1. TELEFONSZÁM: "+36 70 123 4567" és "tel:+36701234567" -> valós szám
+  2. ÉRTÉKELÉSSZÁM: "350+" -> valós
+  3. VÉLEMÉNYEK: a 3 kártya szövege minta -> valódiak
+  4. TÉRKÉP: a körzet iframe jelölője az XI. kerület közepére mutat -> pontos bázis
+  5. ŰRLAP: jelenleg csak elrendezés, beküldés nincs bekötve (action/JS kell)
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#002AFF; --cta-dark:#0020c9;
+  --navy:#0a2540; --cyan:#35b6ef; --green:#16a34a;
+  --hero-ink:#0a2540; --hero-sub:#3d5f7e; --hero-em:#1183d6;
+  --font-display:'Barlow Semi Condensed', system-ui, -apple-system, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px;position:relative;z-index:1}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.kicker::before{content:"";width:26px;height:2px;background:var(--cyan)}
+h2.sec-t{font-size:clamp(27px,4vw,40px);color:var(--ink)}
+h2.sec-t em{font-style:normal;color:var(--brand)}
+.sec-head{max-width:720px;margin-bottom:38px}
+.sec-lead{font-size:17.5px;color:var(--body);margin-top:12px;max-width:620px}
+
+/* ---------- gombok ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:15.5px;padding:13px 21px;border-radius:12px;border:0;cursor:pointer;line-height:1;white-space:nowrap;transition:transform .15s,background .2s,border-color .2s}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-sm{padding:11px 16px;font-size:14.5px}
+.btn-lg{font-size:17px;padding:15px 26px}
+.btn-call{background:var(--cta);color:#fff;box-shadow:0 8px 20px -8px color-mix(in srgb,var(--cta) 60%,transparent)}
+.btn-call:hover{background:var(--cta-dark);transform:translateY(-2px)}
+.btn-out{background:#fff;color:var(--navy);border:1.6px solid var(--line)}
+.btn-out:hover{border-color:var(--brand);color:var(--brand)}
+.btn-quote{background:#fff;color:var(--navy);border:1.6px solid var(--line)}
+.btn-quote:hover{border-color:var(--brand);color:var(--brand)}
+
+/* ---------- FEJLÉC (#3) ---------- */
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.94);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.mark{width:44px;height:44px;border-radius:12px;background:var(--navy);display:grid;place-items:center;flex:none}
+.mark svg{width:26px;height:26px}
+.bname{font-family:var(--font-display);font-weight:900;color:var(--ink);font-size:29px;letter-spacing:.005em;line-height:1}
+.bsub{font-size:11.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:4px;font-weight:600;display:block}
+.nav{display:flex;align-items:center;gap:2px}
+.nav a{font-family:var(--font-display);font-weight:600;font-size:15.5px;color:var(--navy);padding:8px 12px;border-radius:8px;opacity:.82;transition:opacity .15s,background .15s}
+.nav a:hover{opacity:1;background:var(--brand-soft);color:var(--brand)}
+.hdr3{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;height:86px}
+.hdr3 .brand{display:flex;flex-direction:column;gap:5px;text-align:center;justify-self:center}
+.hdr3 .right{justify-self:end;display:flex;align-items:center;gap:12px}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;padding:52px 0;color:var(--hero-ink);background:linear-gradient(120deg,#d6e9fb,#eaf3fc 55%,#f6faff)}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(22px);pointer-events:none;z-index:0}
+.hero::before{top:-120px;right:-70px;width:420px;height:420px;background:radial-gradient(circle,rgba(53,182,239,.28),transparent 70%)}
+.hero::after{bottom:-150px;left:-110px;width:380px;height:380px;background:radial-gradient(circle,rgba(17,131,214,.16),transparent 70%)}
+.pipe-deco{position:absolute;z-index:0;pointer-events:none;color:#002AFF;opacity:.08}
+.pipe-deco svg{width:100%;height:100%;display:block}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:30px;align-items:start}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--navy);background:rgba(17,131,214,.09);border:1px solid rgba(17,131,214,.2);padding:8px 13px;border-radius:999px}
+.pill .g{width:7px;height:7px;border-radius:50%;background:#16a34a}
+h1.hh{font-size:clamp(28px,4vw,42px);color:var(--hero-ink);line-height:1.09;letter-spacing:-.015em}
+h1.hh em{font-style:normal;color:var(--hero-em)}
+.hsub{font-size:clamp(15px,1.5vw,17.5px);color:var(--hero-sub);max-width:520px;margin-top:15px}
+.guarantees{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.guarantees span{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+.guarantees svg{width:15px;height:15px;color:#16a34a;flex:none}
+.left-col{display:flex;flex-direction:column;gap:16px}
+.photo-wrap{position:relative}
+.photo{border-radius:18px;overflow:hidden;position:relative;background:linear-gradient(160deg,#123c66,#081c33);box-shadow:0 24px 60px -22px rgba(10,37,64,.45)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 16%}
+.photo.framed{border:9px solid #fff;box-shadow:0 24px 60px -22px rgba(10,37,64,.45),0 0 0 1px var(--line);min-height:420px}
+.photo .tag{position:absolute;left:20px;bottom:20px;background:rgba(10,37,64,.72);backdrop-filter:blur(6px);color:#fff;padding:8px 14px;border-radius:11px;font-family:var(--font-display);font-weight:700;font-size:15px}
+.photo-wrap .seal{position:absolute;right:-12px;top:-12px;width:84px;height:84px;border-radius:50%;background:var(--cta);color:#fff;display:grid;place-content:center;text-align:center;font-family:var(--font-display);font-weight:900;font-size:27px;line-height:.85;box-shadow:0 12px 26px -8px rgba(249,83,30,.6);border:4px solid #fff;transform:rotate(7deg);z-index:2}
+.photo-wrap .seal span{display:block;font-size:9px;font-weight:700;letter-spacing:.04em;margin-top:4px;text-transform:uppercase}
+.mini-rev{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 18px;box-shadow:0 14px 40px -28px rgba(10,37,64,.5)}
+.mini-rev .mr-stars{color:#f5a623;letter-spacing:1px;font-size:14px}
+.mini-rev p{font-size:14.5px;color:var(--ink);margin:6px 0 8px;line-height:1.5}
+.mini-rev .mr-by{font-family:var(--font-mono);font-size:12.5px;color:var(--muted)}
+.form{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px -24px rgba(10,37,64,.35);padding:22px 24px}
+.form h3{font-size:19px;margin-bottom:2px}
+.form .s{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.form label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+.form input,.form textarea{width:100%;font-family:var(--font-body);font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px 12px;outline:none;margin-bottom:10px;resize:none}
+.form input:focus,.form textarea:focus{border-color:var(--brand)}
+.form .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form .btn-call{width:100%}
+.trustline{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 11px;margin-top:15px;padding-top:14px;border-top:1px solid var(--line);font-size:15.5px;color:var(--body)}
+.trustline b{color:var(--ink);font-weight:700}
+.trustline .tl-stars{color:#f5a623;letter-spacing:1px;font-size:16.5px}
+.trustline .tl-sep{color:var(--muted)}
+
+/* ---------- SZOLGÁLTATÁS + VÉLEMÉNY + CTA ---------- */
+.showcase{position:relative;overflow:hidden;padding:70px 0 76px;
+  background:radial-gradient(760px 440px at 10% 4%,rgba(53,182,239,.16),transparent 62%),radial-gradient(640px 460px at 92% 22%,rgba(17,131,214,.12),transparent 60%),radial-gradient(700px 500px at 78% 100%,rgba(53,182,239,.10),transparent 60%),linear-gradient(180deg,#eef4fb 0%,#f4f9ff 55%,#eaf3fd 100%)}
+.showcase::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;background:radial-gradient(circle,#c9ddf2 1px,transparent 1.5px) 0 0/26px 26px;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.6),transparent 70%);mask-image:linear-gradient(180deg,rgba(0,0,0,.6),transparent 70%)}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;z-index:0;pointer-events:none}
+.showcase .blob.b1{top:-90px;left:-60px;width:340px;height:340px;background:rgba(53,182,239,.35)}
+.showcase .blob.b2{bottom:-120px;right:-70px;width:380px;height:380px;background:rgba(17,131,214,.22)}
+.edito{display:grid;grid-template-columns:1fr;gap:22px}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 24px 60px -34px rgba(10,37,64,.5)}
+.ecard .img{aspect-ratio:5/3;overflow:hidden;position:relative}
+.ecard .img img{width:100%;height:100%;object-fit:cover}
+.ecard .tag{position:absolute;left:16px;top:16px;background:rgba(10,37,64,.72);backdrop-filter:blur(6px);color:#fff;font-family:var(--font-mono);font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px}
+.ecard .body{padding:26px}
+.ecard h3{font-size:25px;margin-bottom:10px}
+.ecard p{font-size:15.5px;color:var(--body)}
+.ecard .actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.rev-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:48px 0 20px}
+.rev-head h3{font-size:23px;color:var(--ink)}
+.rev-head .avg{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:13.5px;color:var(--body)}
+.rev-head .avg .st{color:#f5a623;letter-spacing:1px}
+.revs{display:grid;grid-template-columns:1fr;gap:16px}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px;box-shadow:0 16px 44px -32px rgba(10,37,64,.45)}
+.rev .st{color:#f5a623;letter-spacing:1px;font-size:14px;margin-bottom:10px}
+.rev p{font-size:14.5px;color:var(--ink);margin-bottom:14px;line-height:1.5}
+.rev .by{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-family:var(--font-mono)}
+.rev .by .av{width:32px;height:32px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-family:var(--font-display);font-weight:800;font-size:14px;flex:none}
+.rev .by b{color:var(--body);font-weight:600}
+.cta-row{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-top:34px}
+.cta-row p{font-size:16px;color:var(--body);max-width:520px}
+.cta-row .src{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:2px}
+
+/* ---------- belépő animáció ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- MIÉRT ENGEM + stat-sáv ---------- */
+.why{padding:60px 0;background:#fff;position:relative;overflow:hidden}
+.why-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:38px}
+.why-item{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:20px}
+.why-item .ic{width:46px;height:46px;border-radius:12px;background:var(--brand-soft);display:grid;place-items:center;flex:none}
+.why-item .ic svg{width:24px;height:24px;color:var(--brand)}
+.why-item h3{font-size:18px;margin-bottom:3px}
+.why-item p{font-size:14px;color:var(--body)}
+.statsband{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--navy);border-radius:20px;padding:28px;color:#dbe8f4;position:relative;overflow:hidden}
+.statsband::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 90% 0,rgba(53,182,239,.18),transparent 60%);pointer-events:none}
+.statb{text-align:center;position:relative}
+.statb .n{font-family:var(--font-display);font-weight:900;font-size:34px;color:#fff;line-height:1}
+.statb .l{font-family:var(--font-mono);font-size:12px;color:#9fb6cd;margin-top:6px}
+
+/* ---------- MI A GOND (tünetválasztó) ---------- */
+.problems{padding:64px 0;background:var(--bg);position:relative;overflow:hidden}
+.prob-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.prob{display:block;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px;transition:transform .16s,box-shadow .16s,border-color .16s}
+.prob:hover{transform:translateY(-4px);box-shadow:0 20px 44px -28px rgba(10,37,64,.4);border-color:#cfe4f6}
+.prob .ic{width:48px;height:48px;border-radius:12px;background:var(--brand-soft);display:grid;place-items:center;margin-bottom:14px}
+.prob .ic svg{width:25px;height:25px;color:var(--brand)}
+.prob h3{font-size:19px;margin-bottom:5px}
+.prob p{font-size:14px;color:var(--body)}
+.prob .go{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--cta)}
+
+/* ---------- HOGYAN ZAJLIK ---------- */
+.how{padding:70px 0;background:var(--navy);color:#dbe8f4;position:relative;overflow:hidden}
+.how::before{content:"";position:absolute;inset:0;background:radial-gradient(800px 400px at 15% 120%,rgba(17,131,214,.16),transparent 55%);pointer-events:none}
+.how .kicker{color:var(--cyan)}.how h2{color:#fff}.how h2 em{color:var(--cyan)}.how .sec-lead{color:#b8cadd}
+.steps{display:grid;grid-template-columns:1fr;gap:16px;position:relative}
+.step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:15px;padding:24px;transition:background .2s,border-color .2s}
+.step:hover{background:rgba(255,255,255,.09);border-color:rgba(53,182,239,.4)}
+.step .n{font-family:var(--font-mono);font-weight:600;font-size:15px;color:var(--cyan);background:rgba(53,182,239,.14);border:1px solid rgba(53,182,239,.3);width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:14px}
+.step h3{color:#fff;font-size:20px;margin-bottom:6px}
+.step p{color:#b8cadd;font-size:14.5px}
+
+/* ---------- SÜRGŐSSÉGI CTA ---------- */
+.urgent{padding:44px 0}
+.urgent-band{background:linear-gradient(120deg,var(--cta),#2f6bff);border-radius:20px;padding:26px 30px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;color:#fff;box-shadow:0 22px 50px -26px rgba(249,83,30,.6)}
+.urgent-band .ic{width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.2);display:grid;place-items:center;flex:none}
+.urgent-band .ic svg{width:28px;height:28px;color:#fff}
+.urgent-band .tx{flex:1;min-width:220px}
+.urgent-band h3{color:#fff;font-size:22px}
+.urgent-band p{color:rgba(255,255,255,.92);font-size:14.5px}
+.urgent-band .btn{background:#fff;color:var(--cta-dark)}
+.urgent-band .btn:hover{background:#fff;transform:translateY(-2px)}
+
+/* ---------- hullám elválasztó ---------- */
+.wave-top{position:absolute;top:-1px;left:0;width:100%;line-height:0;z-index:1;pointer-events:none}
+.wave-top svg{width:100%;height:56px;display:block}
+
+/* ---------- lightbox ---------- */
+.lightbox{position:fixed;inset:0;z-index:300;background:rgba(6,15,25,.9);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7)}
+
+/* ---------- REFERENCIÁK (előtte–utána) ---------- */
+.refsec{padding:64px 0;background:#fff}
+.ba-grid{display:grid;grid-template-columns:1fr;gap:22px}
+.ba{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 20px 50px -34px rgba(10,37,64,.4)}
+.ba .pair{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}
+.ba .side{position:relative;aspect-ratio:4/3;overflow:hidden}
+.ba .side img{width:100%;height:100%;object-fit:cover}
+.ba .side.b img{filter:grayscale(.5) brightness(.82) contrast(1.05)}
+.ba .side .lbl{position:absolute;left:10px;top:10px;font-family:var(--font-mono);font-size:11px;font-weight:600;color:#fff;background:rgba(10,37,64,.72);padding:5px 10px;border-radius:999px}
+.ba .side.a .lbl{background:rgba(22,163,74,.9)}
+.ba .body{padding:18px 20px}
+.ba h3{font-size:19px;margin-bottom:3px}
+.ba p{font-size:14px;color:var(--body)}
+.ref-cta{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;margin-top:34px}
+.ref-cta p{font-size:16px;color:var(--body)}
+
+/* ---------- RÓLAM (#2 dekor gyűrűk) ---------- */
+.about{padding:74px 0;position:relative;overflow:hidden}
+.about .blob.b1{top:-90px;left:-50px;width:340px;height:340px;background:rgba(53,182,239,.3)}
+.about .blob.b2{bottom:-120px;right:-70px;width:360px;height:360px;background:rgba(17,131,214,.2)}
+.about-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+.ring-grad{border-radius:50%;padding:6px;background:conic-gradient(from 140deg,var(--cyan),var(--brand),#7fd0f5,var(--cyan));box-shadow:0 24px 60px -26px rgba(10,37,64,.5)}
+.avatar{border-radius:50%;overflow:hidden;border:5px solid #fff;background:#0d2036}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 14%}
+.deco{position:relative;width:300px;height:300px;margin:0 auto;flex:none}
+.deco .dash{position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(17,131,214,.4);animation:spin 44s linear infinite}
+.deco .dot-ring{position:absolute;inset:12px;border-radius:50%;border:1px solid rgba(17,131,214,.18)}
+.deco .ring-grad{position:absolute;inset:26px}
+.deco .avatar{width:100%;height:100%}
+.deco .bubble{position:absolute;z-index:4;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--ink);box-shadow:0 12px 30px -12px rgba(10,37,64,.5);display:flex;align-items:center;gap:7px}
+.deco .bubble small{font-family:var(--font-mono);font-weight:600;font-size:11px;color:var(--muted)}
+.deco .bubble.a{top:-4px;right:-6px}
+.deco .bubble.b{bottom:14px;left:-18px}
+.deco .bubble.b .st{color:#f5a623}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.deco .dash{animation:none}}
+.facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.fact{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 13px;font-size:13.5px;color:var(--navy);font-weight:600}
+.fact svg{width:16px;height:16px;color:var(--brand);flex:none}
+.sign{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--ink);transform:rotate(-3deg);display:inline-block;margin-top:16px}
+
+/* ---------- KÖRZET ---------- */
+.area{padding:72px 0;position:relative;overflow:hidden;background:var(--bg)}
+.area .blob.b1{top:-80px;right:-60px;width:320px;height:320px;background:rgba(53,182,239,.3)}
+.area-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+.map-card{border-radius:20px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px -34px rgba(10,37,64,.5);background:#dfe9f4;position:relative}
+.map-card iframe{width:100%;height:360px;border:0;display:block}
+.map-badge{position:absolute;left:14px;top:14px;z-index:2;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.95);padding:8px 13px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:0 6px 18px -8px rgba(10,37,64,.4)}
+.map-badge svg{width:16px;height:16px;color:var(--brand)}
+.area-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.area-list span{font-family:var(--font-mono);font-size:13.5px;color:var(--navy);background:var(--brand-soft);border:1px solid #cfe6f8;border-radius:8px;padding:7px 12px}
+.area-note{margin-top:20px;display:flex;gap:10px;align-items:center;font-size:15px;color:var(--body)}
+.area-note svg{width:20px;height:20px;color:var(--cta);flex:none}
+.area .btn{margin-top:24px}
+
+/* ---------- GYIK ---------- */
+.faq{padding:72px 0;background:#fff}
+.faq .sec-head{margin-left:auto;margin-right:auto;text-align:center}
+.faq-list{display:grid;gap:12px;max-width:840px;margin:30px auto 0}
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.faq-item summary{list-style:none;cursor:pointer;padding:19px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--ink)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .ic{width:28px;height:28px;border-radius:8px;background:var(--brand-soft);display:grid;place-items:center;flex:none;transition:transform .2s,background .2s}
+.faq-item summary .ic svg{width:17px;height:17px;color:var(--brand)}
+.faq-item[open] summary .ic{transform:rotate(45deg);background:var(--navy)}
+.faq-item[open] summary .ic svg{color:#fff}
+.faq-item .ans{padding:0 22px 22px;font-size:15.5px;color:var(--body)}
+
+/* ---------- KAPCSOLAT ---------- */
+.contact{padding:74px 0;background:var(--navy);color:#dbe8f4;position:relative;overflow:hidden}
+.contact::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 400px at 85% 0,rgba(53,182,239,.16),transparent 60%);pointer-events:none}
+.contact-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+.contact .kicker{color:var(--cyan)}
+.contact h2{color:#fff}
+.contact h2 em{font-style:normal;color:var(--cyan)}
+.contact p.lead{font-size:17px;color:#b8cadd;margin-top:14px;max-width:460px}
+.contact-lines{margin-top:22px;display:grid;gap:12px}
+.cline{display:flex;align-items:center;gap:12px;font-size:16px;color:#eaf3fb}
+.cline svg{width:20px;height:20px;color:var(--cyan);flex:none}
+.cline b{font-family:var(--font-mono);font-weight:600}
+
+/* ---------- LÁBLÉC ---------- */
+footer.site{background:#071a2e;color:#8fa6bd;padding:40px 0 90px}
+.foot{display:flex;flex-direction:column;gap:18px}
+.foot-brand{display:flex;align-items:center;gap:11px}
+.foot-brand .mark{background:#123c66}
+.foot-brand .bname{color:#fff;font-size:22px}
+.foot-brand .bsub{color:#7690a8}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--font-mono);font-size:14px}
+.foot-links a:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:18px;font-size:12.5px;color:#5f7793;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* ---------- mobil hívássáv ---------- */
+.callbar{position:fixed;left:0;right:0;bottom:0;z-index:80;background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px -12px rgba(10,37,64,.25);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+.callbar .cb-info{line-height:1.1;flex:1;min-width:0}
+.callbar .cb-info .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.callbar .cb-info .n{font-family:var(--font-mono);font-weight:600;font-size:16px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.callbar .btn{flex:none}
+
+/* ---------- preloader ---------- */
+.preloader{position:fixed;inset:0;z-index:1000;background:var(--navy);display:grid;place-items:center;animation:preOut .55s ease 1.9s forwards}
+.pre-in{text-align:center}
+.pre-drop{width:66px;height:66px;margin:0 auto 18px;position:relative;transform:rotate(-45deg);border:3px solid var(--cyan);border-radius:50% 50% 50% 0;overflow:hidden;background:rgba(53,182,239,.08)}
+.pre-drop .w{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(var(--cyan),var(--brand));animation:fillDrop 1.6s ease-in-out infinite}
+.pre-name{font-family:var(--font-display);font-weight:900;font-size:26px;letter-spacing:.03em;color:#fff}
+.pre-sub{font-family:var(--font-mono);font-size:12px;color:#8fb0cd;margin-top:5px;text-transform:uppercase;letter-spacing:.08em}
+.pre-bar{width:190px;height:4px;background:rgba(255,255,255,.14);border-radius:4px;margin:20px auto 0;overflow:hidden}
+.pre-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--brand));border-radius:4px;animation:preLoad 1.7s ease forwards}
+@keyframes fillDrop{0%,100%{height:22%}50%{height:88%}}
+@keyframes preLoad{to{width:100%}}
+@keyframes preOut{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.preloader{animation-delay:.3s}.pre-drop .w{animation:none;height:60%}.pre-bar span{animation-duration:.3s}}
+
+/* ---------- hamburger + fiók-menü ---------- */
+.burger{display:none;width:42px;height:42px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer;flex-direction:column;justify-content:center;gap:5px}
+.burger span{display:block;height:2px;width:20px;margin:0 auto;background:var(--navy);border-radius:2px;transition:transform .2s,opacity .2s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(84vw,320px);background:#fff;z-index:95;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:-20px 0 60px -30px rgba(10,37,64,.5);display:flex;flex-direction:column;padding:20px}
+.drawer.open{transform:none}
+.drawer-scrim{position:fixed;inset:0;background:rgba(10,37,64,.45);opacity:0;visibility:hidden;transition:opacity .3s;z-index:90}
+.drawer-scrim.open{opacity:1;visibility:visible}
+.drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.drawer-top .bname{font-size:19px}
+.drawer .x{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:20px;color:var(--navy);cursor:pointer;line-height:1}
+.drawer nav{display:flex;flex-direction:column;gap:2px;margin:8px 0 16px}
+.drawer nav a{font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--ink);padding:12px 10px;border-radius:10px}
+.drawer nav a:hover{background:var(--brand-soft);color:var(--brand)}
+.drawer .d-cta{margin-top:auto;display:flex;flex-direction:column;gap:9px}
+.drawer .d-phone{font-family:var(--font-mono);font-weight:600;font-size:18px;color:var(--ink);display:flex;align-items:center;gap:9px;padding:6px 10px}
+.drawer .d-phone svg{width:18px;height:18px;color:var(--brand)}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .hdr3{grid-template-columns:auto 1fr;height:68px}
+  .hdr3 .nav{display:none}
+  .hdr3 .brand{flex-direction:row;text-align:left;justify-self:start;align-items:center;gap:10px}
+  .hdr3 .bname{font-size:21px}.hdr3 .bsub{display:none}
+  .hdr3 .right .btn-quote{display:none}
+  .burger{display:flex}
+}
+@media(min-width:640px){
+  .revs{grid-template-columns:1fr 1fr 1fr}
+  .form .row2{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .prob-grid{grid-template-columns:1fr 1fr}
+  .statsband{grid-template-columns:repeat(4,1fr)}
+}
+@media(min-width:820px){
+  .edito{grid-template-columns:1fr 1fr}
+  .ba-grid{grid-template-columns:1fr 1fr}
+  .prob-grid{grid-template-columns:1fr 1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr 1fr 1fr}
+  .about-grid{grid-template-columns:340px 1fr}
+  .area-grid{grid-template-columns:1.1fr .9fr;gap:50px}
+  .contact-grid{grid-template-columns:1fr 1fr;gap:50px}
+}
+@media(min-width:920px){
+  .hero-grid{grid-template-columns:.9fr 1.1fr;gap:44px}
+  .why-grid{grid-template-columns:repeat(4,1fr)}
+  .callbar{display:none}
+  body{padding-bottom:0}
+}
+@media(max-width:919px){
+  body{padding-bottom:76px}
+  /* mobil hero (1-es verzió): szöveg elöl → kép → vélemény → űrlap; szövegek változatlanok */
+  .hero-grid{display:flex;flex-direction:column;gap:0}
+  .hero-grid > .left-col{display:contents}
+  .hero-grid > div:not(.left-col){display:contents}
+  .hero .pills{order:1}
+  .hero .hh{order:2}
+  .hero .hsub{order:3}
+  .hero .guarantees{order:4}
+  .hero .photo-wrap{order:5;margin-top:16px}
+  .hero .mini-rev{order:6;margin-top:12px}
+  .hero .form{order:7}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== PRELOADER ===================== -->
+<div class="preloader" id="preloader">
+  <div class="pre-in">
+    <div class="pre-drop"><span class="w"></span></div>
+    <div class="pre-name">GELESZ JÁNOS</div>
+    <div class="pre-sub">Vízszerelő · Duguláselhárítás</div>
+    <div class="pre-bar"><span></span></div>
+  </div>
+</div>
+
+<!-- ===================== FEJLÉC ===================== -->
+<header class="site">
+  <div class="wrap hdr3">
+    <nav class="nav"><a href="#szolgaltatasok">Szolgáltatások</a><a href="#referenciak">Referenciák</a><a href="#rolam">Rólam</a></nav>
+    <a href="#top" class="brand"><span class="bname">GELESZ JÁNOS</span><span class="bsub">Vízszerelő · Duguláselhárítás</span></a>
+    <div class="right">
+      <nav class="nav"><a href="#korzet">Körzet</a><a href="#gyik">GYIK</a></nav>
+      <a href="#kapcsolat" class="btn btn-quote btn-sm">Ajánlatkérés</a>
+      <a href="tel:+36701234567" class="btn btn-call btn-sm">Hívás</a>
+      <button class="burger" id="burger" aria-label="Menü" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobil fiók-menü -->
+<div class="drawer-scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-top"><span class="bname">GELESZ JÁNOS</span><button class="x" id="drawerClose" aria-label="Bezárás">×</button></div>
+  <nav>
+    <a href="#szolgaltatasok">Szolgáltatások</a>
+    <a href="#referenciak">Referenciák</a>
+    <a href="#rolam">Rólam</a>
+    <a href="#velemenyek">Vélemények</a>
+    <a href="#korzet">Körzet</a>
+    <a href="#gyik">GYIK</a>
+    <a href="#kapcsolat">Kapcsolat</a>
+  </nav>
+  <div class="d-cta">
+    <a href="tel:+36701234567" class="d-phone"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>+36 70 123 4567</a>
+    <a href="#kapcsolat" class="btn btn-call">Kapcsolatfelvétel</a>
+  </div>
+</aside>
+<span id="top"></span>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="pipe-deco" style="top:-6px;right:-24px;width:360px;height:250px">
+    <svg viewBox="0 0 360 250" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M360 34 H168 a30 30 0 0 0 -30 30 V140 a30 30 0 0 1 -30 30 H6"/>
+      <path d="M252 34 v-16 M252 34 v16" stroke-width="6"/>
+      <path d="M74 170 v-16 M74 170 v16" stroke-width="6"/>
+      <circle cx="138" cy="100" r="15"/>
+      <path d="M138 85v-9M138 115v9M123 100h-9M153 100h9" stroke-width="6"/>
+    </svg>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="left-col">
+      <div class="photo-wrap">
+        <div class="photo framed"><img src="images/janos-portre.png" alt="Gelesz János vízszerelő"><div class="tag">Gelesz János, vízszerelő</div></div>
+        <div class="seal">50<span>év tapasztalat</span></div>
+      </div>
+      <div class="mini-rev">
+        <div class="mr-stars">★★★★★</div>
+        <p>„Felhívtam, negyedórán belül visszahívott, másnapra megoldotta a dugulást. Korrekt, tiszta munka."</p>
+        <div class="mr-by">— Anita, XI. kerület</div>
+      </div>
+    </div>
+    <div>
+      <div class="pills"><span class="pill"><span class="g"></span>Ma is elérhető</span></div>
+      <h1 class="hh"><em>Vízszerelés</em> és duguláselhárítás — ahogy elvárnád.</h1>
+      <p class="hsub">Gelesz János a XI. kerületben és 30 km-es körzetben. Csöpög, dugul, szivárog? Hívj, és megoldom.</p>
+      <div class="guarantees">
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Kiszállási díjat beszámítom</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Számlát adok</span>
+        <span><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Garancia a munkára</span>
+      </div>
+      <form class="form" onsubmit="return false" style="margin-top:18px">
+        <div class="row2">
+          <div><label>Név</label><input placeholder="Kovács Anita"></div>
+          <div><label>Telefon</label><input type="tel" placeholder="+36 30 ..."></div>
+        </div>
+        <label>Mi a gond?</label><textarea placeholder="Pl.: csöpög a csap a fürdőben..."></textarea>
+        <button class="btn btn-call">Felveszem a kapcsolatot</button>
+        <a href="tel:+36701234567" class="btn btn-quote" style="width:100%;margin-top:10px">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>
+          Vagy hívj most: +36 70 123 4567
+        </a>
+        <div class="trustline">
+          <span class="tl-stars">★★★★★</span>
+          <span><b>350+ értékelés</b> a tudjukki.hu-n</span>
+          <span class="tl-sep">·</span>
+          <span><b>50 év</b> tapasztalat</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MIÉRT ENGEM + STAT-SÁV ===================== -->
+<section class="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Gyors kiszállás</h3><p>A legtöbb esetben aznap vagy másnap ott vagyok.</p></div></div>
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Tiszta munka</h3><p>Rend marad utánam — nem hagyok koszt, törmeléket.</p></div></div>
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><h3>Számlát adok</h3><p>Átlátható, előre egyeztetett ár — nincs rejtett díj.</p></div></div>
+      <div class="why-item"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Garancia</h3><p>A munkámra garanciát vállalok — nyugodt lehetsz.</p></div></div>
+    </div>
+    <div class="statsband">
+      <div class="statb"><div class="n" data-count="50" data-pre="~">~50</div><div class="l">év tapasztalat</div></div>
+      <div class="statb"><div class="n" data-count="350" data-suf="+">350+</div><div class="l">értékelés</div></div>
+      <div class="statb"><div class="n">4,9 ★</div><div class="l">átlag a tudjukki.hu-n</div></div>
+      <div class="statb"><div class="n" data-count="30" data-suf=" km">30 km</div><div class="l">működési körzet</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SZOLGÁLTATÁS + VÉLEMÉNY + CTA ===================== -->
+<section class="showcase" id="szolgaltatasok">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Két fő szolgáltatás</span>
+      <h2 class="sec-t">Duguláselhárítás és vízszerelés.</h2>
+      <p class="sec-lead">A két terület, amiben otthon vagyok — a XI. kerületben és 30 km-es körzetben.</p>
+    </div>
+    <div class="edito">
+      <div class="ecard">
+        <div class="img"><span class="tag">Fő szakterület</span><img src="images/plumber-using-wrench-repair-water-pipe-sink.webp" alt="Duguláselhárítás"></div>
+        <div class="body"><h3>Duguláselhárítás</h3><p>Ha nem folyik le a víz, felkúszik, vagy bűzlik a lefolyó. Mosdó, kád, mosogató, WC, kültéri lefolyó — gépi és kézi tisztítással, felesleges bontás nélkül.</p><div class="actions"><a href="#kapcsolat" class="btn btn-call">Hívom emiatt</a><a href="#gyik" class="btn btn-out">Részletek</a></div></div>
+      </div>
+      <div class="ecard">
+        <div class="img"><span class="tag">Klasszikus vízszerelés</span><img src="images/janos-csovek.png" alt="Vízszerelés"></div>
+        <div class="body"><h3>Vízszerelés</h3><p>Csőtörés, szivárgó vagy régi cső, csaptelep- és szifoncsere, WC- és tartályhibák. Javítás vagy csere — előbb megbeszéljük, mi éri meg jobban.</p><div class="actions"><a href="#kapcsolat" class="btn btn-call">Hívom emiatt</a><a href="#gyik" class="btn btn-out">Részletek</a></div></div>
+      </div>
+    </div>
+
+    <div class="rev-head" id="velemenyek">
+      <h3>Amit az ügyfelek mondanak</h3>
+      <span class="avg"><span class="st">★★★★★</span> <b>4,9</b> · 350+ értékelés a tudjukki.hu-n</span>
+    </div>
+    <div class="revs">
+      <div class="rev"><div class="st">★★★★★</div><p>„Felhívtam, negyedórán belül visszahívott, másnapra megoldotta a dugulást. Korrekt, tiszta munka."</p><div class="by"><span class="av">A</span><span><b>Anita</b> · XI. kerület</span></div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>„Éjjel csőtörés, reggel már itt volt. Gyorsan, korrekt áron megcsinálta. Csak ajánlani tudom."</p><div class="by"><span class="av">P</span><span><b>Péter</b> · Budaörs</span></div></div>
+      <div class="rev"><div class="st">★★★★★</div><p>„Régóta csöpögött a csap, máshol lebeszéltek a javításról. János megoldotta, nem kellett cserélni."</p><div class="by"><span class="av">K</span><span><b>Katalin</b> · Újbuda</span></div></div>
+    </div>
+
+    <div class="cta-row">
+      <p>Neked is segítek — mondd el pár szóban, mi a gond, és felveszem veled a kapcsolatot.</p>
+      <a href="#kapcsolat" class="btn btn-call btn-lg"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Kapcsolatfelvétel</a>
+      <span class="src">★★★★★ 4,9 · 350+ értékelés a tudjukki.hu-n</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REFERENCIÁK (előtte–utána) ===================== -->
+<section class="refsec" id="referenciak">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Referenciák</span><h2 class="sec-t">Előtte – <em>utána</em>.</h2><p class="sec-lead">A hiba és a megoldott állapot egymás mellett — néhány elvégzett munka a környékről.</p></div>
+    <div class="ba-grid">
+      <div class="ba">
+        <div class="pair">
+          <div class="side b"><span class="lbl">Előtte</span><img src="images/plumber-using-wrench-repair-water-pipe-sink.webp" alt="Eldugult lefolyó előtte"></div>
+          <div class="side a"><span class="lbl">Utána</span><img src="images/janos-csovek.png" alt="Tiszta elfolyás utána"></div>
+        </div>
+        <div class="body"><h3>Eldugult lefolyó → tiszta elfolyás</h3><p>Konyhai lefolyó gépi tisztítása · Budaörs</p></div>
+      </div>
+      <div class="ba">
+        <div class="pair">
+          <div class="side b"><span class="lbl">Előtte</span><img src="images/janos-csovek.png" alt="Szivárgó régi cső előtte"></div>
+          <div class="side a"><span class="lbl">Utána</span><img src="images/plumber-using-wrench-repair-water-pipe-sink.webp" alt="Új rézcső utána"></div>
+        </div>
+        <div class="body"><h3>Szivárgó régi cső → új rézcső</h3><p>Fürdő vízvezeték cseréje · Újbuda</p></div>
+      </div>
+    </div>
+    <div class="ref-cta"><p>Neked is ilyen megoldás kell?</p><a href="#kapcsolat" class="btn btn-call">Kapcsolatfelvétel</a></div>
+  </div>
+</section>
+
+<!-- ===================== HOGYAN ZAJLIK ===================== -->
+<section class="how" id="hogyan">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Hogyan zajlik</span><h2 class="sec-t">Néhány lépés, és <em>megoldjuk</em>.</h2><p class="sec-lead">Semmi bonyodalom — így néz ki egy tipikus munka az első hívástól a kész állapotig.</p></div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Felhívsz</h3><p>Tárcsázol, vagy itt hagyod a számod az űrlapon, és én hívlak vissza.</p></div>
+      <div class="step"><div class="n">2</div><h3>Elmondod, mit látsz</h3><p>Nem kell szaknyelv — pár szóból is kiderítjük, mi lehet a gond.</p></div>
+      <div class="step"><div class="n">3</div><h3>Időpontot egyeztetünk</h3><p>Megbeszéljük, mikor megyek ki, és nagyjából mire számíthatsz.</p></div>
+      <div class="step"><div class="n">4</div><h3>Megoldom, számlával</h3><p>Rendbe teszem, rendet hagyok, számlát adok és garanciát vállalok.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RÓLAM ===================== -->
+<section class="about" id="rolam">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap about-grid">
+    <div class="deco">
+      <div class="dash"></div>
+      <div class="dot-ring"></div>
+      <div class="ring-grad"><div class="avatar"><img src="images/janos-portre.png" alt="Gelesz János"></div></div>
+      <span class="bubble a">50 <small>év</small></span>
+      <span class="bubble b"><span class="st">★</span> 4,9</span>
+    </div>
+    <div>
+      <span class="kicker">Rólam</span>
+      <h2 class="sec-t">Egy ember, akit <em>tényleg elérsz</em>.</h2>
+      <p class="sec-lead">Közel 50 éve javítok csöveket, hárítok dugulást a XI. kerületben és környékén. Nem cég vagyok, nem call center — engem hívsz, én megyek ki, én oldom meg. Érthetően elmondom, mi a baj, számlát adok, és a munkámra garanciát vállalok.</p>
+      <div class="facts">
+        <span class="fact"><svg viewBox="0 0 24 24" fill="none"><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.9"/></svg>~50 év tapasztalat</span>
+        <span class="fact"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>XI. kerület + 30 km</span>
+        <span class="fact"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Számla + garancia</span>
+      </div>
+      <div class="sign">Gelesz János</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KÖRZET ===================== -->
+<section class="area" id="korzet">
+  <span class="blob b1"></span>
+  <div class="pipe-deco" style="left:-30px;bottom:-14px;width:330px;height:210px">
+    <svg viewBox="0 0 330 210" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-8 44 H108 a28 28 0 0 1 28 28 V150 a28 28 0 0 0 28 28 H330"/>
+      <path d="M64 44 v-16 M64 44 v16" stroke-width="6"/>
+      <path d="M232 178 v-16 M232 178 v16" stroke-width="6"/>
+      <circle cx="136" cy="112" r="15"/>
+      <path d="M136 97v-9M136 127v9M121 112h-9M151 112h9" stroke-width="6"/>
+    </svg>
+  </div>
+  <div class="wrap area-grid">
+    <div class="map-card">
+      <span class="map-badge"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Bázis: XI. kerület, Budapest</span>
+      <iframe title="Gelesz János vízszerelő – működési körzet" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=18.85%2C47.38%2C19.20%2C47.53&layer=mapnik&marker=47.463%2C19.030"></iframe>
+    </div>
+    <div class="area-copy">
+      <span class="kicker">Hol dolgozom</span>
+      <h2 class="sec-t"><em>XI. kerület</em> és 30 km-es körzet.</h2>
+      <p class="sec-lead">A bázisom Újbuda, innen indulok. A tágabb környéket is vállalom — ha bizonytalan vagy, hívj, és megmondom, hogy kimegyek-e.</p>
+      <div class="area-list">
+        <span>Újbuda</span><span>Kelenföld</span><span>Albertfalva</span><span>Gazdagrét</span>
+        <span>Budafok</span><span>Nagytétény</span><span>Budaörs</span><span>Törökbálint</span>
+        <span>Diósd</span><span>Érd</span><span>Biatorbágy</span><span>Sóskút</span>
+      </div>
+      <div class="area-note"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.5 1.5c0 1.5-2 1.7-2 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16.4" r="1" fill="currentColor"/></svg>Nem látod a településed? Hívj — a legtöbb helyre kimegyek.</div>
+      <a href="#kapcsolat" class="btn btn-call"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívom Jánost</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SÜRGŐSSÉGI CTA ===================== -->
+<section class="urgent">
+  <div class="wrap">
+    <div class="urgent-band">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 2 20h20L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <div class="tx"><h3>Csőtörés, elöntés most?</h3><p>Ne várj vele — minél előbb hívsz, annál kisebb a kár. Ma is elérhető vagyok.</p></div>
+      <a href="tel:+36701234567" class="btn"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívás azonnal</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GYIK ===================== -->
+<section class="faq" id="gyik">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">GYIK</span><h2 class="sec-t">Gyakori kérdések.</h2><p class="sec-lead">Amit a legtöbben megkérdeznek, mielőtt hívnak.</p></div>
+    <div class="faq-list">
+      <details class="faq-item"><summary>Mennyibe kerül a kiszállás?<span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary><div class="ans">A kiszállási díjat a munka árába beszámítom. Telefonon előre tájékoztatlak, hogy ne érjen meglepetés.</div></details>
+      <details class="faq-item"><summary>Mikor tudsz jönni?<span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary><div class="ans">A legtöbb esetben aznap vagy másnap. Sürgős gondnál hívj, és megnézzük, mikor tudok kimenni.</div></details>
+      <details class="faq-item"><summary>Nem tudom, pontosan mi a baj — így is hívhatlak?<span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary><div class="ans">Persze. Nem kell szaknyelven megfogalmaznod — mondd el, mit tapasztalsz (mit látsz, mit hallasz), a többit közösen kiderítjük.</div></details>
+      <details class="faq-item"><summary>Adsz számlát és garanciát?<span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary><div class="ans">Igen — számlát adok, és a munkámra garanciát vállalok.</div></details>
+      <details class="faq-item"><summary>Milyen területen dolgozol?<span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary><div class="ans">A XI. kerületben és kb. 30 km-es körzetében (Újbuda, Budaörs, Budafok, Törökbálint, Diósd, Érd és környéke). Ha bizonytalan vagy, hívj.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KAPCSOLAT ===================== -->
+<section class="contact" id="kapcsolat">
+  <div class="wave-top"><svg viewBox="0 0 1440 56" preserveAspectRatio="none" fill="#ffffff"><path d="M0,0 L1440,0 L1440,28 C1200,56 960,8 720,28 C480,48 240,8 0,32 Z"></path></svg></div>
+  <div class="wrap contact-grid">
+    <div>
+      <span class="kicker">Kapcsolat</span>
+      <h2>Vedd fel velem a <em>kapcsolatot</em>.</h2>
+      <p class="lead">Mondd el pár szóban, mi a gond, és hívlak. Ha inkább telefonálnál, itt elérsz:</p>
+      <div class="contact-lines">
+        <div class="cline"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg><b>+36 70 123 4567</b></div>
+        <div class="cline"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>XI. kerület + 30 km · H–Szo 7:00–20:00</div>
+      </div>
+    </div>
+    <form class="form" onsubmit="return false">
+      <h3>Visszahívást kérek</h3><p class="s">Hagyd itt az elérhetőséged, hívlak.</p>
+      <div class="row2">
+        <div><label>Név</label><input placeholder="Kovács Anita"></div>
+        <div><label>Telefon</label><input type="tel" placeholder="+36 30 ..."></div>
+      </div>
+      <label>Mi a gond?</label><textarea placeholder="Pl.: eldugult a WC..."></textarea>
+      <button class="btn btn-call">Felveszem a kapcsolatot</button>
+      <p class="s" style="text-align:center;margin-top:8px">Az adataidat csak a visszahíváshoz használjuk.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== LÁBLÉC ===================== -->
+<footer class="site">
+  <div class="wrap foot">
+    <div class="foot-brand"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="#35b6ef"/><path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/></svg></span><span><span class="bname">GELESZ JÁNOS</span><span class="bsub">Vízszerelő · Duguláselhárítás</span></span></div>
+    <nav class="foot-links"><a href="#szolgaltatasok">Szolgáltatások</a><a href="#referenciak">Referenciák</a><a href="#rolam">Rólam</a><a href="#velemenyek">Vélemények</a><a href="#korzet">Körzet</a><a href="#gyik">GYIK</a><a href="tel:+36701234567">+36 70 123 4567</a></nav>
+    <div class="foot-bottom"><span>© 2026 Gelesz János vízszerelő · XI. kerület + 30 km</span><span><a href="#">Impresszum</a> · <a href="#">Adatkezelési tájékoztató</a> · 4,9 ★ · 350+ értékelés a tudjukki.hu-n</span></div>
+  </div>
+</footer>
+
+<!-- mobil hívássáv -->
+<div class="callbar">
+  <div class="cb-info"><div class="l">Hívd Jánost</div><div class="n">+36 70 123 4567</div></div>
+  <a href="tel:+36701234567" class="btn btn-call"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>Hívás</a>
+</div>
+
+<!-- lightbox a referencia-képekhez -->
+<div class="lightbox" id="lightbox"><img src="" alt="Referencia nagyban"></div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* belépő animáció */
+  if(!reduce && 'IntersectionObserver' in window){
+    var els = document.querySelectorAll('.sec-head,.ecard,.rev,.ba,.why-item,.statsband,.prob,.step,.about-grid,.area-grid,.faq-item,.contact-grid,.urgent-band');
+    els.forEach(function(el){el.classList.add('reveal')});
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.12});
+    els.forEach(function(el){io.observe(el)});
+  }
+
+  /* számláló-animáció */
+  function runCount(){
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var target = +el.getAttribute('data-count'),
+          pre = el.getAttribute('data-pre') || '',
+          suf = el.getAttribute('data-suf') || '',
+          t0 = null, dur = 1200;
+      function step(ts){ if(!t0) t0 = ts; var p = Math.min((ts - t0)/dur, 1);
+        el.textContent = pre + Math.floor(p*target) + suf; if(p < 1) requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    });
+  }
+  var band = document.querySelector('.statsband');
+  if(band && 'IntersectionObserver' in window){
+    var counted = false;
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting && !counted){ counted = true; runCount(); io2.disconnect(); } });
+    },{threshold:.4});
+    io2.observe(band);
+  } else { runCount(); }
+
+  /* lightbox */
+  var lb = document.getElementById('lightbox'), lbimg = lb && lb.querySelector('img');
+  if(lb){
+    document.querySelectorAll('.refsec img').forEach(function(img){
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function(){ lbimg.src = img.currentSrc || img.src; lb.classList.add('open'); });
+    });
+    lb.addEventListener('click', function(){ lb.classList.remove('open'); });
+    window.addEventListener('keydown', function(e){ if(e.key === 'Escape') lb.classList.remove('open'); });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById('burger'), d=document.getElementById('drawer'), s=document.getElementById('scrim'), x=document.getElementById('drawerClose');
+  function set(o){ if(!d) return; d.classList.toggle('open',o); s.classList.toggle('open',o); b.classList.toggle('open',o); b.setAttribute('aria-expanded',o); d.setAttribute('aria-hidden',!o); document.body.style.overflow=o?'hidden':''; }
+  if(b) b.addEventListener('click',function(){ set(!d.classList.contains('open')); });
+  if(s) s.addEventListener('click',function(){ set(false); });
+  if(x) x.addEventListener('click',function(){ set(false); });
+  if(d) d.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ set(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+  // preloader: gyorsabb elrejtés, ha az oldal hamar betölt
+  window.addEventListener('load',function(){ var p=document.getElementById('preloader'); if(p) setTimeout(function(){ p.style.transition='opacity .4s'; p.style.opacity='0'; setTimeout(function(){ p.style.visibility='hidden'; },400); },500); });
+})();
+</script>
+
+</body>
+</html>

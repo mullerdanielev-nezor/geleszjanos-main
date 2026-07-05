@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Szolgáltatás szekció – elrendezés ötletek | Gelesz János</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --brand-soft:#e7f4fd;
+  --cta:#f9531e; --cta-dark:#e0430f;
+  --navy:#0a2540; --cyan:#35b6ef; --green:#16a34a; --green-soft:#e8f6ec;
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+.hidden{display:none !important}
+
+/* választó */
+.picker{position:sticky;top:0;z-index:200;background:#0b1622;color:#dbe8f4;border-bottom:1px solid rgba(255,255,255,.1);padding:12px 0}
+.pgroup{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pgroup .lab{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:#8fb0cd;min-width:150px}
+.opt{cursor:pointer;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:#eaf3fb;border-radius:9px;padding:7px 13px;font-family:var(--font-display);font-weight:700;font-size:14px}
+.opt:hover{background:rgba(255,255,255,.1)}
+.opt.active{border-color:#35b6ef;background:rgba(53,182,239,.18);color:#fff}
+
+/* szekció fejléc */
+section.svc{padding:64px 0}
+.sec-head{max-width:720px;margin-bottom:38px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);margin-bottom:12px}
+.kicker::before{content:"";width:26px;height:2px;background:var(--cyan)}
+h2.sec-t{font-size:clamp(27px,4vw,40px);color:var(--ink)}
+.sec-lead{font-size:17.5px;color:var(--body);margin-top:12px;max-width:620px}
+.go{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:700;font-size:14.5px;color:var(--cta);margin-top:14px}
+.ico{display:grid;place-items:center;flex:none}
+.ico svg{width:26px;height:26px}
+.when{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--navy);background:var(--cyan-soft,#e7f4fd);border-radius:9px;padding:10px 12px;font-weight:500;margin-top:14px}
+.when svg{width:17px;height:17px;color:var(--brand);flex:none;margin-top:2px}
+
+/* ============ V1: kártyarács (3 oszlop) ============ */
+.grid3{display:grid;grid-template-columns:1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:24px;transition:transform .16s,box-shadow .16s}
+.card:hover{transform:translateY(-3px);box-shadow:0 20px 44px -26px rgba(10,37,64,.4)}
+.card .ico{width:52px;height:52px;border-radius:13px;background:var(--navy);margin-bottom:15px}
+.card .ico svg{color:var(--cyan)}
+.card h3{font-size:21px;margin-bottom:7px}
+.card p{font-size:15px;color:var(--body)}
+
+/* ============ V2: ikon + szöveg (2 oszlop, vízszintes) ============ */
+.grid2{display:grid;grid-template-columns:1fr;gap:16px}
+.row{display:flex;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px;align-items:flex-start}
+.row .ico{width:54px;height:54px;border-radius:14px;background:var(--brand-soft)}
+.row .ico svg{color:var(--brand)}
+.row h3{font-size:20px;margin-bottom:5px}
+.row p{font-size:14.5px;color:var(--body)}
+
+/* ============ V3: váltakozó sorok (zebra) ============ */
+.zebra{display:grid;gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.zrow{display:flex;gap:20px;align-items:center;padding:22px 24px}
+.zrow + .zrow{border-top:1px solid var(--line)}
+.zrow:nth-child(even){background:#f7fafd}
+.zrow .num{font-family:var(--font-display);font-weight:900;font-size:26px;color:var(--brand);width:44px;flex:none}
+.zrow .ico{width:48px;height:48px;border-radius:12px;background:var(--navy)}
+.zrow .ico svg{color:var(--cyan)}
+.zrow .tx{flex:1}
+.zrow h3{font-size:20px;margin-bottom:3px}
+.zrow p{font-size:14.5px;color:var(--body)}
+.zrow .go{margin-top:0;white-space:nowrap}
+
+/* ============ V4: kiemelt fő + kisebb rács ============ */
+.feat-wrap{display:grid;grid-template-columns:1fr;gap:16px}
+.feat{background:var(--navy);color:#dbe8f4;border-radius:18px;padding:30px;position:relative;overflow:hidden}
+.feat::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 300px at 90% 0,rgba(53,182,239,.2),transparent 60%)}
+.feat .ico{width:58px;height:58px;border-radius:14px;background:rgba(53,182,239,.16);margin-bottom:16px;position:relative}
+.feat .ico svg{color:var(--cyan)}
+.feat h3{color:#fff;font-size:26px;margin-bottom:8px;position:relative}
+.feat p{color:#b8cadd;font-size:15.5px;position:relative;max-width:420px}
+.feat .go{color:var(--cyan);position:relative}
+.feat-side{display:grid;grid-template-columns:1fr;gap:14px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;gap:14px;align-items:flex-start}
+.mini .ico{width:44px;height:44px;border-radius:11px;background:var(--brand-soft)}
+.mini .ico svg{color:var(--brand);width:22px;height:22px}
+.mini h3{font-size:17px;margin-bottom:3px}
+.mini p{font-size:13.5px;color:var(--body)}
+
+/* ============ V5: kompakt pipás lista ============ */
+.checks{display:grid;grid-template-columns:1fr;gap:12px}
+.chk{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.chk .b{width:30px;height:30px;border-radius:8px;background:var(--green-soft);display:grid;place-items:center;flex:none;margin-top:1px}
+.chk .b svg{width:18px;height:18px;color:var(--green)}
+.chk h3{font-size:17px;margin-bottom:2px}
+.chk p{font-size:13.5px;color:var(--body)}
+
+/* ============ V6: "mikor hívj" hangsúllyal ============ */
+.grid3b{display:grid;grid-template-columns:1fr;gap:16px}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px}
+.wcard .ico{width:50px;height:50px;border-radius:13px;background:var(--navy);margin-bottom:14px}
+.wcard .ico svg{color:var(--cyan)}
+.wcard h3{font-size:20px;margin-bottom:6px}
+.wcard p{font-size:14.5px;color:var(--body)}
+.cyan-soft{--cyan-soft:#e7f4fd}
+
+@media(min-width:640px){
+  .grid2{grid-template-columns:1fr 1fr}
+  .checks{grid-template-columns:1fr 1fr}
+  .grid3b{grid-template-columns:1fr 1fr}
+}
+@media(min-width:920px){
+  .grid3{grid-template-columns:1fr 1fr 1fr}
+  .grid3b{grid-template-columns:1fr 1fr 1fr}
+  .feat-wrap{grid-template-columns:1.05fr .95fr;align-items:stretch}
+  .feat-side{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body class="cyan-soft">
+
+<div class="picker"><div class="wrap"><div class="pgroup">
+  <span class="lab">Szolgáltatás szekció</span>
+  <button class="opt" data-v="1">1 · Kártyarács</button>
+  <button class="opt" data-v="2">2 · Ikon + szöveg sorok</button>
+  <button class="opt" data-v="3">3 · Váltakozó sorok</button>
+  <button class="opt" data-v="4">4 · Kiemelt fő + kisebbek</button>
+  <button class="opt" data-v="5">5 · Kompakt pipás lista</button>
+  <button class="opt" data-v="6">6 · „Mikor hívj" hangsúllyal</button>
+</div></div></div>
+
+<!-- ================= V1 ================= -->
+<section class="svc svc-v" id="sv1">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Amivel foglalkozom</span><h2 class="sec-t">Konkrét gondok, konkrét megoldás.</h2><p class="sec-lead">Nem mindent vállalok — amit igen, azt rendesen. Itt van, mikor engem érdemes hívni.</p></div>
+    <div class="grid3">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14M8 4v8a4 4 0 0 0 8 0V4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 16v4M9 20h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><h3>Duguláselhárítás</h3><p>Eldugult lefolyó, mosdó, kád, mosogató vagy WC. Ha lassan folyik le, vagy visszajön a víz.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/><rect x="17" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>Vízvezeték-javítás</h3><p>Törött, szivárgó vagy elöregedett cső javítása, cseréje — mielőtt nagyobb kár lesz belőle.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6v4H9zM15 6h3M12 8v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M8 11h8l-1 6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2l-1-6Z" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>Csaptelep, szifon, lefolyó</h3><p>Csöpögő, szivárgó csap, laza vagy folyó szifon, cserélendő lefolyó, szűkülő vízsugár.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><h3>WC-problémák</h3><p>Dugulás, folyamatosan folyó víz, szivárgó tartály, laza vagy mozgó WC-csésze.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c0 5-5 7-5 11a5 5 0 0 0 10 0c0-4-5-6-5-11Z" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>Szivárgás, beázás</h3><p>Vizet látsz ott, ahol nem kéne — fal mellett, szekrény alatt, csőnél.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><rect x="6" y="3" width="12" height="18" rx="3" stroke="currentColor" stroke-width="1.9"/><path d="M10 7h4M12 11v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><h3>Bojler, vízmelegítő</h3><p>Vízkőtelenítés, bekötés, csere. Ha langyos a víz vagy szivárog a tartály.</p><span class="go">Hívom emiatt →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= V2 ================= -->
+<section class="svc svc-v hidden" id="sv2">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Amivel foglalkozom</span><h2 class="sec-t">Amiben számíthatsz rám.</h2><p class="sec-lead">Ikon és rövid leírás — gyorsan átfutható, mi tartozik hozzám.</p></div>
+    <div class="grid2">
+      <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14M8 4v8a4 4 0 0 0 8 0V4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 16v4M9 20h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><div><h3>Duguláselhárítás</h3><p>Eldugult lefolyó, mosdó, kád, WC. Ha lassan folyik le vagy visszajön a víz.</p></div></div>
+      <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/><rect x="17" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/></svg></div><div><h3>Vízvezeték-javítás</h3><p>Törött, szivárgó vagy elöregedett cső javítása, cseréje.</p></div></div>
+      <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6v4H9zM15 6h3M12 8v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M8 11h8l-1 6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2l-1-6Z" stroke="currentColor" stroke-width="1.9"/></svg></div><div><h3>Csaptelep, szifon, lefolyó</h3><p>Csöpögő csap, laza vagy folyó szifon, cserélendő lefolyó.</p></div></div>
+      <div class="row"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><div><h3>WC-problémák</h3><p>Dugulás, folyamatosan folyó víz, szivárgó tartály, mozgó csésze.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= V3 ================= -->
+<section class="svc svc-v hidden" id="sv3">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Amivel foglalkozom</span><h2 class="sec-t">Egy lista, amiből tudod, jó helyen jársz.</h2><p class="sec-lead">Áttekinthető sorok — gyors végigfutás minden szolgáltatáson.</p></div>
+    <div class="zebra">
+      <div class="zrow"><span class="num">01</span><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14M8 4v8a4 4 0 0 0 8 0V4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 16v4M9 20h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><div class="tx"><h3>Duguláselhárítás</h3><p>Eldugult lefolyó, mosdó, kád, WC — ha lassan folyik le vagy visszajön a víz.</p></div><span class="go">Hívom →</span></div>
+      <div class="zrow"><span class="num">02</span><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/><rect x="17" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/></svg></div><div class="tx"><h3>Vízvezeték-javítás</h3><p>Törött, szivárgó vagy elöregedett cső javítása, cseréje.</p></div><span class="go">Hívom →</span></div>
+      <div class="zrow"><span class="num">03</span><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6v4H9zM15 6h3M12 8v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M8 11h8l-1 6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2l-1-6Z" stroke="currentColor" stroke-width="1.9"/></svg></div><div class="tx"><h3>Csaptelep, szifon, lefolyó</h3><p>Csöpögő csap, laza vagy folyó szifon, cserélendő lefolyó.</p></div><span class="go">Hívom →</span></div>
+      <div class="zrow"><span class="num">04</span><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><div class="tx"><h3>WC-problémák</h3><p>Dugulás, folyamatosan folyó víz, szivárgó tartály, mozgó csésze.</p></div><span class="go">Hívom →</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= V4 ================= -->
+<section class="svc svc-v hidden" id="sv4">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Amivel foglalkozom</span><h2 class="sec-t">A fő szakterület — és minden más, ami vele jár.</h2><p class="sec-lead">A duguláselhárítás a specialitásom, de a klasszikus vízszerelést is viszem.</p></div>
+    <div class="feat-wrap">
+      <div class="feat"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14M8 4v8a4 4 0 0 0 8 0V4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 16v4M9 20h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><h3>Duguláselhárítás</h3><p>Eldugult lefolyó, mosdó, kád, mosogató vagy WC. Ha lassan folyik le, vagy már felkúszik a víz — ez a fő szakterületem, gyorsan és tisztán megoldom.</p><span class="go">Hívom emiatt →</span></div>
+      <div class="feat-side">
+        <div class="mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/><rect x="17" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/></svg></div><div><h3>Vízvezeték-javítás</h3><p>Törött, szivárgó cső javítása, cseréje.</p></div></div>
+        <div class="mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6v4H9zM15 6h3M12 8v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M8 11h8l-1 6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2l-1-6Z" stroke="currentColor" stroke-width="1.9"/></svg></div><div><h3>Csaptelep, szifon</h3><p>Csöpögő csap, folyó szifon, lefolyó.</p></div></div>
+        <div class="mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.9"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><div><h3>WC-problémák</h3><p>Dugulás, folyó víz, mozgó csésze.</p></div></div>
+        <div class="mini"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c0 5-5 7-5 11a5 5 0 0 0 10 0c0-4-5-6-5-11Z" stroke="currentColor" stroke-width="1.9"/></svg></div><div><h3>Szivárgás, beázás</h3><p>Víz ott, ahol nem kéne lennie.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= V5 ================= -->
+<section class="svc svc-v hidden" id="sv5">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Amivel foglalkozom</span><h2 class="sec-t">Röviden: ezekkel hívhatsz.</h2><p class="sec-lead">Letisztult, gyorsan átfutható lista — pipával, ami tartozik hozzám.</p></div>
+    <div class="checks">
+      <div class="chk"><span class="b"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Duguláselhárítás</h3><p>Lefolyó, mosdó, kád, WC — ha nem megy le a víz.</p></div></div>
+      <div class="chk"><span class="b"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Vízvezeték-javítás</h3><p>Törött, szivárgó vagy régi cső javítása, cseréje.</p></div></div>
+      <div class="chk"><span class="b"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Csaptelep, szifon, lefolyó</h3><p>Csöpögő csap, folyó szifon, cserélendő lefolyó.</p></div></div>
+      <div class="chk"><span class="b"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>WC-problémák</h3><p>Dugulás, folyó víz, szivárgó tartály, mozgó csésze.</p></div></div>
+      <div class="chk"><span class="b"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Szivárgás, beázás</h3><p>Víz a fal mellett, szekrény alatt, csőnél.</p></div></div>
+      <div class="chk"><span class="b"><svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Bojler, vízmelegítő</h3><p>Vízkőtelenítés, bekötés, csere.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= V6 ================= -->
+<section class="svc svc-v hidden" id="sv6">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Amivel foglalkozom</span><h2 class="sec-t">Mikor engem érdemes hívni.</h2><p class="sec-lead">Minden szolgáltatásnál ott van, milyen jelnél hívj — nem kell tudnod a hiba nevét.</p></div>
+    <div class="grid3b">
+      <div class="wcard"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14M8 4v8a4 4 0 0 0 8 0V4" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M12 16v4M9 20h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></div><h3>Duguláselhárítás</h3><p>Lefolyó, mosdó, kád, mosogató vagy WC dugulása.</p><div class="when"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg><span>Hívj, ha: nem megy le a víz, vagy felkúszik.</span></div></div>
+      <div class="wcard"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/><rect x="17" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>Vízvezeték-javítás</h3><p>Törött, szivárgó vagy elöregedett cső javítása.</p><div class="when"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg><span>Hívj, ha: nedvesedik a fal, víz a cső mellett.</span></div></div>
+      <div class="wcard"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6v4H9zM15 6h3M12 8v3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M8 11h8l-1 6a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2l-1-6Z" stroke="currentColor" stroke-width="1.9"/></svg></div><h3>Csaptelep, szifon</h3><p>Csöpögő csap, laza vagy folyó szifon, lefolyó.</p><div class="when"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg><span>Hívj, ha: csöpög, spriccel, folyik a szifon alól.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+const opts = document.querySelectorAll('.opt');
+function show(v){
+  document.querySelectorAll('.svc-v').forEach(s => s.classList.toggle('hidden', s.id !== 'sv'+v));
+  opts.forEach(o => o.classList.toggle('active', o.dataset.v === v));
+}
+opts.forEach(o => o.addEventListener('click', () => show(o.dataset.v)));
+show('1');
+</script>
+</body>
+</html>

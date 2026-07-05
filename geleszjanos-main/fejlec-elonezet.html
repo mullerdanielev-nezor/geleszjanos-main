@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fejléc előnézet – János vízszerelő</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --navy:#0a2540; --navy-800:#0d2c4d; --navy-700:#123c66;
+  --blue:#1183d6; --cyan:#35b6ef; --cyan-soft:#e7f4fd;
+  --orange:#f9531e; --orange-dark:#e0430f;
+  --green:#16a34a;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --line:#e3eaf2; --bg:#f4f7fb; --card:#fff; --white:#fff;
+  --font-display:'Barlow Semi Condensed', system-ui, -apple-system, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+  --wrap:1200px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);color:var(--ink);line-height:1.05;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+
+/* preview banner */
+.pv-note{background:#fffbe9;border-bottom:1px solid #f2e4b8;color:#7a5c12;
+  font-family:var(--font-mono);font-size:12.5px;text-align:center;padding:7px 16px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:.01em;
+  padding:12px 18px;border-radius:11px;border:0;cursor:pointer;line-height:1;white-space:nowrap;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease}
+.btn svg{width:19px;height:19px;flex:none}
+.btn-call{background:var(--orange);color:#fff;box-shadow:0 8px 20px -6px rgba(249,83,30,.55)}
+.btn-call:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 14px 28px -8px rgba(249,83,30,.6)}
+
+/* ================= TOP UTILITY STRIP ================= */
+.topbar{background:var(--navy);color:#cdddec;font-family:var(--font-mono);font-size:12.5px}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:38px;gap:16px}
+.topbar .tb-left{display:flex;align-items:center;gap:22px;min-width:0}
+.topbar .tb-item{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.topbar .tb-item svg{width:15px;height:15px;color:var(--cyan);flex:none}
+.topbar .tb-item b{color:#fff;font-weight:600}
+.topbar .tb-right{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.topbar .tb-right .dot{width:8px;height:8px;border-radius:50%;background:#3ee07a;box-shadow:0 0 0 3px rgba(62,224,122,.22)}
+.topbar .tb-hide{display:none}
+
+/* ================= MAIN HEADER ================= */
+header.site{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);
+  backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line);
+  transition:box-shadow .25s ease}
+header.site.scrolled{box-shadow:0 6px 22px -12px rgba(10,37,64,.28)}
+.hdr{display:flex;align-items:center;gap:18px;height:74px}
+
+/* brand */
+.brand{display:flex;align-items:center;gap:12px;flex:none}
+.mark{width:44px;height:44px;border-radius:12px;background:var(--navy);
+  display:grid;place-items:center;flex:none;position:relative;overflow:hidden}
+.mark::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(60% 60% at 70% 15%, rgba(53,182,239,.45), transparent 60%)}
+.mark svg{width:25px;height:25px;position:relative}
+.brand-txt{display:flex;flex-direction:column;line-height:1}
+.brand-name{font-family:var(--font-display);font-weight:800;font-size:23px;color:var(--ink);letter-spacing:.02em}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;margin-top:3px;font-weight:600}
+
+/* center nav */
+.nav{display:none;align-items:center;gap:4px;margin:0 auto}
+.nav a{position:relative;font-family:var(--font-display);font-weight:600;font-size:16px;
+  color:var(--navy);padding:9px 14px;border-radius:9px;transition:color .15s ease,background .15s ease}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:5px;height:2px;
+  background:var(--cyan);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .18s ease}
+.nav a:hover{color:var(--blue);background:var(--cyan-soft)}
+.nav a:hover::after{transform:scaleX(1)}
+
+/* right cluster */
+.hdr-right{display:flex;align-items:center;gap:16px;margin-left:auto}
+.hdr-phone{display:none;flex-direction:column;align-items:flex-end;line-height:1.1}
+.hdr-phone .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.hdr-phone .num{font-family:var(--font-mono);font-weight:600;font-size:18px;color:var(--ink)}
+.hdr-phone:hover .num{color:var(--blue)}
+
+/* hamburger */
+.burger{display:inline-flex;flex-direction:column;justify-content:center;gap:5px;
+  width:44px;height:44px;border-radius:11px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.burger span{display:block;height:2px;width:20px;margin:0 auto;background:var(--navy);border-radius:2px;transition:transform .2s ease,opacity .2s ease}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* mobile drawer */
+.drawer{position:fixed;inset:0 0 0 auto;width:min(84vw,340px);background:#fff;z-index:90;
+  transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+  box-shadow:-20px 0 60px -30px rgba(10,37,64,.5);display:flex;flex-direction:column;padding:22px}
+.drawer.open{transform:none}
+.drawer-scrim{position:fixed;inset:0;background:rgba(10,37,64,.45);opacity:0;visibility:hidden;
+  transition:opacity .28s ease;z-index:85}
+.drawer-scrim.open{opacity:1;visibility:visible}
+.drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.drawer-close{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:20px;color:var(--navy)}
+.drawer nav{display:flex;flex-direction:column;gap:2px;margin:10px 0 18px}
+.drawer nav a{font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--ink);
+  padding:13px 12px;border-radius:10px}
+.drawer nav a:hover{background:var(--cyan-soft);color:var(--blue)}
+.drawer .d-phone{font-family:var(--font-mono);font-weight:600;font-size:20px;color:var(--ink);
+  padding:10px 12px;display:flex;align-items:center;gap:9px}
+.drawer .d-phone svg{width:18px;height:18px;color:var(--blue)}
+.drawer .btn{margin-top:auto;font-size:18px;padding:15px}
+
+/* demo body so sticky/scroll can be felt */
+.demo{padding:60px 0 120px}
+.demo h1{font-size:clamp(30px,5vw,46px);color:var(--ink);max-width:14ch;line-height:1.06}
+.demo h1 em{font-style:normal;color:var(--blue)}
+.demo p{font-size:18px;max-width:52ch;margin-top:16px}
+.filler{height:900px;margin-top:40px;border-radius:16px;
+  background:repeating-linear-gradient(135deg,#eef3f9 0 22px,#f4f7fb 22px 44px);
+  border:1px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-family:var(--font-mono);font-size:13px}
+
+@media(min-width:640px){ .topbar .tb-hide{display:flex} }
+@media(min-width:960px){
+  .nav{display:flex}
+  .hdr-phone{display:flex}
+  .burger{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="pv-note">🔎 FEJLÉC ELŐNÉZET — ez egy különálló bemutató oldal. Görgess a ragadós viselkedéshez, és szűkítsd az ablakot a mobil menühöz.</div>
+
+<!-- ===== felső infó-sáv ===== -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left">
+      <span class="tb-item">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+        XI. kerület <b>+ 30 km</b>
+      </span>
+      <span class="tb-item tb-hide">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        H–Szo <b>7:00–20:00</b>
+      </span>
+      <span class="tb-item tb-hide">
+        <svg viewBox="0 0 24 24" fill="none"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19l1-5.8L3.5 9.1l5.9-.9L12 3Z" fill="#f5a623"/></svg>
+        <b>4,9</b> · 358 vélemény
+      </span>
+    </div>
+    <div class="tb-right"><span class="dot"></span> Ma is elérhető</div>
+  </div>
+</div>
+
+<!-- ===== fő fejléc ===== -->
+<header class="site" id="hdr">
+  <div class="wrap hdr">
+    <a href="#" class="brand" aria-label="János vízszerelő – főoldal">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10Z" fill="#35b6ef"/>
+          <path d="M10.2 12.5a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 0 0-3.6 0Z" fill="#0a2540"/>
+        </svg>
+      </span>
+      <span class="brand-txt">
+        <span class="brand-name">JÁNOS</span>
+        <span class="brand-sub">Vízszerelő · Duguláselhárítás</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Fő navigáció">
+      <a href="#mi-a-gond">Mi a gond?</a>
+      <a href="#szolgaltatasok">Szolgáltatások</a>
+      <a href="#velemenyek">Vélemények</a>
+      <a href="#korzet">Körzet</a>
+      <a href="#gyik">GYIK</a>
+    </nav>
+
+    <div class="hdr-right">
+      <a href="tel:+36701234567" class="hdr-phone">
+        <span class="lbl">Hívj most</span>
+        <span class="num">+36 70 123 4567</span>
+      </a>
+      <a href="tel:+36701234567" class="btn btn-call">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>
+        Hívás
+      </a>
+      <button class="burger" id="burger" aria-label="Menü" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== mobil menü ===== -->
+<div class="drawer-scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-top">
+    <span class="brand-name" style="font-size:20px">JÁNOS</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Bezárás">×</button>
+  </div>
+  <nav>
+    <a href="#mi-a-gond">Mi a gond?</a>
+    <a href="#szolgaltatasok">Szolgáltatások</a>
+    <a href="#velemenyek">Vélemények</a>
+    <a href="#korzet">Körzet</a>
+    <a href="#gyik">GYIK</a>
+  </nav>
+  <a href="tel:+36701234567" class="d-phone">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 5.5c0 8 6 14 14 14 .8 0 1.5-.7 1.5-1.5v-2.3c0-.6-.4-1.1-1-1.3l-2.6-.9c-.5-.2-1.1 0-1.4.4l-.9 1.1c-2.2-1-4-2.8-5-5l1.1-.9c.4-.3.6-.9.4-1.4l-.9-2.6c-.2-.6-.7-1-1.3-1H6C5.2 4 4.5 4.7 4.5 5.5Z" fill="currentColor"/></svg>
+    +36 70 123 4567
+  </a>
+  <a href="tel:+36701234567" class="btn btn-call">Hívom Jánost most</a>
+</aside>
+
+<!-- ===== demó tartalom ===== -->
+<main class="demo">
+  <div class="wrap">
+    <h1>Ez itt a <em>fejléc</em> előnézete.</h1>
+    <p>A fenti fejléc a meglévő oldal színvilágát és betűtípusát használja: felül egy vékony infó-sáv (körzet, nyitvatartás, értékelés), alatta a fő fejléc logóval, középső menüvel, telefonszámmal és narancs „Hívás" gombbal. Ragadós marad görgetéskor, és árnyékot kap. Kisebb kijelzőn a menü hamburger-ikonra vált.</p>
+    <div class="filler">↑ görgess, hogy lásd a ragadós fejlécet és az árnyékot</div>
+  </div>
+</main>
+
+<script>
+// scroll shadow
+const hdr = document.getElementById('hdr');
+addEventListener('scroll', () => hdr.classList.toggle('scrolled', scrollY > 8), {passive:true});
+
+// mobile drawer
+const burger = document.getElementById('burger');
+const drawer = document.getElementById('drawer');
+const scrim  = document.getElementById('scrim');
+const closeBtn = document.getElementById('drawerClose');
+function setMenu(open){
+  drawer.classList.toggle('open', open);
+  scrim.classList.toggle('open', open);
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+  drawer.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+burger.addEventListener('click', () => setMenu(!drawer.classList.contains('open')));
+scrim.addEventListener('click', () => setMenu(false));
+closeBtn.addEventListener('click', () => setMenu(false));
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if(e.key === 'Escape') setMenu(false); });
+</script>
+</body>
+</html>

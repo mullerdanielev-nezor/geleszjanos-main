@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design-játszótér – színek + vízszerelős elemek | Gelesz János</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#eef4fb; --card:#ffffff; --line:#d9e6f4;
+  --ink:#0b1c2c; --body:#465a6e; --muted:#71849a;
+  --brand:#1183d6; --cta:#f9531e; --navy:#0a2540; --cyan:#35b6ef;
+  --font-display:'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-body:'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);color:var(--body);background:var(--bg);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased;transition:background .3s}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);line-height:1.05;font-weight:800}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+
+/* ===== vezérlő ===== */
+.controls{position:sticky;top:0;z-index:200;background:#0b1622;color:#dbe8f4;border-bottom:1px solid rgba(255,255,255,.1);padding:12px 0}
+.ctrl-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ctrl-row .t{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#8fb0cd}
+.swatch{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:5px 10px 5px 6px}
+.swatch input[type=color]{width:30px;height:30px;border:0;background:none;border-radius:8px;cursor:pointer;padding:0}
+.swatch label{font-family:var(--font-display);font-weight:700;font-size:13px;color:#eaf3fb}
+.swatch .hex{font-family:var(--font-mono);font-size:11px;color:#8fb0cd;margin-left:2px}
+.copybar{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.copybar code{font-family:var(--font-mono);font-size:11.5px;color:#cfe0f2;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:5px 9px}
+.copybar button{cursor:pointer;border:0;background:#35b6ef;color:#062338;border-radius:7px;padding:6px 11px;font-family:var(--font-display);font-weight:700;font-size:12.5px}
+.presets{display:flex;gap:6px}
+.pbtn{cursor:pointer;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);border-radius:8px;padding:6px 10px;color:#eaf3fb;font-family:var(--font-display);font-weight:700;font-size:12.5px;display:flex;gap:6px;align-items:center}
+.pbtn:hover{background:rgba(255,255,255,.12)}
+.pbtn i{width:12px;height:12px;border-radius:50%;display:block}
+
+/* ===== galéria keret ===== */
+.section{padding:44px 0}
+.sec-lab{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-lab .k{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+.sec-lab h2{font-size:24px}
+.sec-lab .line{flex:1;height:1px;background:var(--line)}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:1fr}
+.g4{grid-template-columns:1fr 1fr}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 16px 44px -34px rgba(10,37,64,.4)}
+.card .demo{height:150px;position:relative;overflow:hidden;display:grid;place-items:center}
+.card .name{padding:11px 15px;font-family:var(--font-display);font-weight:700;font-size:14.5px;color:var(--ink);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card .name span{font-family:var(--font-mono);font-weight:500;font-size:11px;color:var(--muted)}
+
+/* ===== háttér-minták ===== */
+.pat{position:absolute;inset:0}
+.pat.drops{background:radial-gradient(circle, color-mix(in srgb,var(--brand) 55%,transparent) 2px, transparent 2.6px) 0 0/26px 26px, color-mix(in srgb,var(--bg) 60%,#fff)}
+.pat.waves{background:
+  radial-gradient(20px 8px at 10px -2px, transparent 60%, color-mix(in srgb,var(--brand) 35%,transparent) 61%) 0 0/40px 16px,
+  color-mix(in srgb,var(--bg) 60%,#fff)}
+.pat.bubbles{background:
+  radial-gradient(circle at 20% 30%, color-mix(in srgb,var(--cyan) 40%,transparent) 0 6px, transparent 7px),
+  radial-gradient(circle at 65% 65%, color-mix(in srgb,var(--brand) 35%,transparent) 0 10px, transparent 11px),
+  radial-gradient(circle at 82% 22%, color-mix(in srgb,var(--cyan) 30%,transparent) 0 4px, transparent 5px),
+  radial-gradient(circle at 40% 80%, color-mix(in srgb,var(--brand) 25%,transparent) 0 7px, transparent 8px),
+  color-mix(in srgb,var(--bg) 60%,#fff)}
+.pat.grid{background:
+  linear-gradient(color-mix(in srgb,var(--brand) 22%,transparent) 1px,transparent 1px) 0 0/30px 30px,
+  linear-gradient(90deg,color-mix(in srgb,var(--brand) 22%,transparent) 1px,transparent 1px) 0 0/30px 30px,
+  color-mix(in srgb,var(--bg) 55%,#fff)}
+.pat.pipes{background:
+  linear-gradient(color-mix(in srgb,var(--brand) 30%,transparent) 3px,transparent 3px) 0 8px/100% 40px,
+  linear-gradient(90deg,color-mix(in srgb,var(--cyan) 30%,transparent) 3px,transparent 3px) 8px 0/40px 100%,
+  color-mix(in srgb,var(--bg) 60%,#fff)}
+.pat.glow{background:
+  radial-gradient(200px 140px at 20% 10%, color-mix(in srgb,var(--brand) 30%,transparent), transparent 60%),
+  radial-gradient(200px 160px at 85% 80%, color-mix(in srgb,var(--cyan) 28%,transparent), transparent 60%),
+  color-mix(in srgb,var(--bg) 50%,#fff)}
+
+/* ===== elválasztók ===== */
+.dividers .card .demo{height:110px;background:color-mix(in srgb,var(--bg) 60%,#fff)}
+.divbox{position:relative;width:100%;height:100%}
+.divbox .top{position:absolute;inset:0 0 50% 0;background:var(--navy)}
+.divbox svg{position:absolute;left:0;width:100%;height:44px}
+.divbox .wave1{top:calc(50% - 43px);color:var(--navy)}
+.pipe-div{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:26px;background:linear-gradient(var(--brand),color-mix(in srgb,var(--brand) 70%,#000));border-top:3px solid color-mix(in srgb,var(--brand) 60%,#fff);border-bottom:3px solid color-mix(in srgb,var(--brand) 40%,#000)}
+.pipe-div::before,.pipe-div::after{content:"";position:absolute;top:-6px;width:40px;height:38px;background:color-mix(in srgb,var(--brand) 85%,#000);border-radius:5px}
+.pipe-div::before{left:16%}.pipe-div::after{right:16%}
+.dropline{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-around;color:var(--cyan)}
+.dropline svg{width:22px;height:22px}
+
+/* ===== ikon-jelvények ===== */
+.badges{display:flex;flex-wrap:wrap;gap:14px}
+.ibadge{width:76px;text-align:center}
+.ibadge .b{width:64px;height:64px;border-radius:18px;margin:0 auto 7px;display:grid;place-items:center;background:color-mix(in srgb,var(--brand) 12%,#fff);border:1px solid color-mix(in srgb,var(--brand) 25%,transparent);color:var(--brand)}
+.ibadge.dark .b{background:var(--navy);color:var(--cyan);border:0}
+.ibadge.round .b{border-radius:50%}
+.ibadge.grad .b{background:linear-gradient(140deg,var(--brand),var(--cyan));color:#fff;border:0}
+.ibadge .b svg{width:32px;height:32px}
+.ibadge span{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+
+/* ===== dísz-elemek ===== */
+.seal{width:96px;height:96px;border-radius:50%;background:var(--cta);color:#fff;display:grid;place-content:center;text-align:center;font-family:var(--font-display);font-weight:900;font-size:30px;line-height:.85;border:5px solid #fff;box-shadow:0 12px 30px -10px color-mix(in srgb,var(--cta) 60%,transparent)}
+.seal span{display:block;font-size:9px;margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+.gbadge{display:inline-flex;align-items:center;gap:9px;background:color-mix(in srgb,var(--brand) 10%,#fff);border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);border-radius:12px;padding:11px 15px;color:var(--navy);font-weight:700;font-family:var(--font-display)}
+.gbadge svg{width:22px;height:22px;color:var(--brand)}
+.level{width:80%;height:70px;border-radius:12px 12px 6px 6px;border:2px solid var(--brand);position:relative;overflow:hidden;background:color-mix(in srgb,var(--brand) 6%,#fff)}
+.level .water{position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(var(--cyan),var(--brand));opacity:.85}
+.level .water::before{content:"";position:absolute;top:-6px;left:0;right:0;height:10px;background:var(--cyan);border-radius:50%;opacity:.6}
+.pipe-frame{padding:16px;border:4px solid var(--brand);border-radius:14px;position:relative;background:var(--card);color:var(--ink);font-family:var(--font-display);font-weight:700}
+.pipe-frame::before,.pipe-frame::after{content:"";position:absolute;width:16px;height:16px;background:var(--brand);border-radius:50%}
+.pipe-frame::before{left:-9px;top:50%;transform:translateY(-50%)}.pipe-frame::after{right:-9px;top:50%;transform:translateY(-50%)}
+.stars{color:#f5a623;letter-spacing:2px;font-size:20px}
+.live{display:inline-flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--cyan) 12%,#fff);border:1px solid color-mix(in srgb,var(--cyan) 30%,transparent);border-radius:999px;padding:8px 14px;font-weight:600;color:var(--navy);font-size:13px}
+.live .dot{width:9px;height:9px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2s infinite}
+.stat-drop{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.stat-drop .ic{width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--cyan) 14%,#fff);display:grid;place-items:center;color:var(--brand)}
+.stat-drop .ic svg{width:26px;height:26px}
+.stat-drop .n{font-family:var(--font-display);font-weight:900;font-size:24px;color:var(--ink);line-height:1}
+.stat-drop .l{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+
+/* ===== animált ===== */
+.faucet{position:relative;color:var(--brand)}
+.faucet svg{width:60px;height:60px}
+.drip{position:absolute;left:50%;top:56px;width:8px;height:12px;background:var(--cyan);border-radius:0 0 50% 50%;transform:translateX(-50%) scaleY(.6);animation:drip 1.8s infinite ease-in}
+@keyframes drip{0%{top:52px;opacity:0;transform:translateX(-50%) scale(.4)}20%{opacity:1}80%{opacity:1}100%{top:110px;opacity:0;transform:translateX(-50%) scale(1)}}
+.awave{position:absolute;inset:0;overflow:hidden;background:color-mix(in srgb,var(--bg) 55%,#fff)}
+.awave svg{position:absolute;bottom:0;width:200%;height:60px;color:var(--brand);animation:slide 6s linear infinite}
+@keyframes slide{to{transform:translateX(-50%)}}
+.bubbles-anim{position:absolute;inset:0;background:var(--navy);overflow:hidden}
+.bubbles-anim i{position:absolute;bottom:-20px;border-radius:50%;background:color-mix(in srgb,var(--cyan) 55%,transparent);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-180px);opacity:0}}
+.fill{width:64px;height:64px;border-radius:14px;border:2px solid var(--brand);position:relative;overflow:hidden;background:color-mix(in srgb,var(--brand) 6%,#fff)}
+.fill .w{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(var(--cyan),var(--brand));animation:fillup 3s ease-in-out infinite}
+@keyframes fillup{0%,100%{height:20%}50%{height:90%}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.4)}70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+
+@media(min-width:680px){ .g3{grid-template-columns:1fr 1fr 1fr} .g4{grid-template-columns:1fr 1fr 1fr 1fr} }
+</style>
+</head>
+<body>
+
+<!-- ===== VEZÉRLŐ ===== -->
+<div class="controls">
+  <div class="wrap ctrl-row">
+    <span class="t">Válaszd ki a színeket:</span>
+    <span class="swatch"><input type="color" id="c-brand" value="#1183d6"><label>Márka</label><span class="hex" id="h-brand">#1183d6</span></span>
+    <span class="swatch"><input type="color" id="c-cta" value="#f9531e"><label>Kiemelés</label><span class="hex" id="h-cta">#f9531e</span></span>
+    <span class="swatch"><input type="color" id="c-navy" value="#0a2540"><label>Sötét</label><span class="hex" id="h-navy">#0a2540</span></span>
+    <span class="swatch"><input type="color" id="c-cyan" value="#35b6ef"><label>Cián</label><span class="hex" id="h-cyan">#35b6ef</span></span>
+    <span class="swatch"><input type="color" id="c-bg" value="#eef4fb"><label>Háttér</label><span class="hex" id="h-bg">#eef4fb</span></span>
+    <div class="presets">
+      <button class="pbtn" data-p="viz"><i style="background:#1183d6"></i>Víz</button>
+      <button class="pbtn" data-p="smaragd"><i style="background:#0e9f6e"></i>Smaragd</button>
+      <button class="pbtn" data-p="grafit"><i style="background:#2563eb"></i>Grafit</button>
+      <button class="pbtn" data-p="homok"><i style="background:#0f766e"></i>Homok</button>
+    </div>
+    <div class="copybar" style="flex-basis:100%">
+      <code id="cssout">--brand:#1183d6; --cta:#f9531e; --navy:#0a2540; --cyan:#35b6ef; --bg:#eef4fb;</code>
+      <button id="copybtn">Színek másolása</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ===== HÁTTÉR-MINTÁK ===== -->
+<section class="section">
+  <div class="sec-lab"><span class="k">Vízszerelős</span><h2>Háttér-minták</h2><span class="line"></span></div>
+  <div class="grid g3">
+    <div class="card"><div class="demo"><div class="pat drops"></div></div><div class="name">Vízcsepp pöttyök <span>drops</span></div></div>
+    <div class="card"><div class="demo"><div class="pat waves"></div></div><div class="name">Hullám sorok <span>waves</span></div></div>
+    <div class="card"><div class="demo"><div class="pat bubbles"></div></div><div class="name">Buborékok <span>bubbles</span></div></div>
+    <div class="card"><div class="demo"><div class="pat grid"></div></div><div class="name">Blueprint rács <span>grid</span></div></div>
+    <div class="card"><div class="demo"><div class="pat pipes"></div></div><div class="name">Cső-vonalháló <span>pipes</span></div></div>
+    <div class="card"><div class="demo"><div class="pat glow"></div></div><div class="name">Fény-foltok <span>glow</span></div></div>
+  </div>
+</section>
+
+<!-- ===== ELVÁLASZTÓK ===== -->
+<section class="section dividers">
+  <div class="sec-lab"><span class="k">Szekciók közé</span><h2>Elválasztók</h2><span class="line"></span></div>
+  <div class="grid g3">
+    <div class="card"><div class="demo"><div class="divbox"><div class="top"></div><svg class="wave1" viewBox="0 0 1440 44" preserveAspectRatio="none" fill="currentColor"><path d="M0,44 L1440,44 L1440,16 C1200,44 960,0 720,18 C480,36 240,0 0,22 Z"/></svg></div></div><div class="name">Hullám <span>wave</span></div></div>
+    <div class="card"><div class="demo"><div class="divbox"><div class="top"></div><svg class="wave1" viewBox="0 0 1440 44" preserveAspectRatio="none" style="color:color-mix(in srgb,var(--navy) 55%,transparent);top:calc(50% - 40px)"><path d="M0,44 L1440,44 L1440,20 C1160,-6 900,50 640,20 C420,-4 200,40 0,18 Z" fill="currentColor"/></svg><svg class="wave1" viewBox="0 0 1440 44" preserveAspectRatio="none" fill="var(--navy)"><path d="M0,44 L1440,44 L1440,22 C1200,48 960,4 720,22 C480,40 240,4 0,26 Z"/></svg></div></div><div class="name">Dupla hullám <span>layered</span></div></div>
+    <div class="card"><div class="demo"><div class="divbox"><div class="pipe-div"></div></div></div><div class="name">Cső toldással <span>pipe</span></div></div>
+    <div class="card"><div class="demo"><div class="divbox"><div class="dropline"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z"/></svg></div></div></div><div class="name">Csepp-sor <span>drops</span></div></div>
+  </div>
+</section>
+
+<!-- ===== IKON-JELVÉNYEK ===== -->
+<section class="section">
+  <div class="sec-lab"><span class="k">Szakma-ikonok</span><h2>Ikon-jelvények</h2><span class="line"></span></div>
+  <div class="card" style="padding:22px"><div class="badges">
+    <div class="ibadge"><div class="b"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z" fill="currentColor"/></svg></div><span>csepp</span></div>
+    <div class="ibadge round"><div class="b"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14M8 4v8a4 4 0 0 0 8 0V4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 16v4M9 20h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><span>csaptelep</span></div>
+    <div class="ibadge dark"><div class="b"><svg viewBox="0 0 24 24" fill="none"><path d="M14 5a3 3 0 1 0 3 3l3 3-2 2-3-3a3 3 0 0 1-4-4L9 8 5 4 4 5l4 4-1 1-3 8 2 2 8-3 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div><span>csavarkulcs</span></div>
+    <div class="ibadge grad"><div class="b"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><rect x="17" y="14" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/></svg></div><span>cső</span></div>
+    <div class="ibadge"><div class="b"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><span>szelep</span></div>
+    <div class="ibadge round"><div class="b"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 12l4-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg></div><span>mérőóra</span></div>
+    <div class="ibadge dark"><div class="b"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="6" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 12v6M12 12v6M15 12v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><span>zuhany</span></div>
+    <div class="ibadge grad"><div class="b"><svg viewBox="0 0 24 24" fill="none"><path d="M6 4h12v6a6 6 0 0 1-12 0V4Z" stroke="currentColor" stroke-width="1.8"/><path d="M8 20h8M12 16v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><span>WC</span></div>
+  </div></div>
+</section>
+
+<!-- ===== DÍSZ-ELEMEK ===== -->
+<section class="section">
+  <div class="sec-lab"><span class="k">Kiegészítők</span><h2>Dísz-elemek, jelvények</h2><span class="line"></span></div>
+  <div class="grid g3">
+    <div class="card"><div class="demo"><div class="seal">50<span>év tapasztalat</span></div></div><div class="name">Pecsét <span>seal</span></div></div>
+    <div class="card"><div class="demo"><div class="gbadge"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4 3 7 7 8 4-1 7-4 7-8V6l-7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Garancia a munkára</div></div><div class="name">Garancia-jelvény <span>badge</span></div></div>
+    <div class="card"><div class="demo"><div class="level"><div class="water"></div></div></div><div class="name">Vízszint-mérő <span>level</span></div></div>
+    <div class="card"><div class="demo"><div class="pipe-frame">Csőkeretes doboz</div></div><div class="name">Cső-keret <span>frame</span></div></div>
+    <div class="card"><div class="demo" style="flex-direction:column;gap:6px"><div class="stars">★★★★★</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--muted)">4,9 · 358 értékelés</div></div><div class="name">Értékelés-sáv <span>rating</span></div></div>
+    <div class="card"><div class="demo"><div class="live"><span class="dot"></span>Ma is elérhető</div></div><div class="name">Élő státusz <span>live</span></div></div>
+  </div>
+</section>
+
+<!-- ===== STAT CSEMPÉK ===== -->
+<section class="section">
+  <div class="sec-lab"><span class="k">Számok</span><h2>Stat-csempék vízcsepp ikonnal</h2><span class="line"></span></div>
+  <div class="grid g4">
+    <div class="stat-drop"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c0 5-5 7-5 12a5 5 0 0 0 10 0c0-5-5-7-5-12Z" fill="currentColor"/></svg></span><div><div class="n">~50</div><div class="l">év tapasztalat</div></div></div>
+    <div class="stat-drop"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="m12 3 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19l1-5.8L3.5 9.1l5.9-.9L12 3Z" fill="currentColor"/></svg></span><div><div class="n">4,9</div><div class="l">átlag</div></div></div>
+    <div class="stat-drop"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg></span><div><div class="n">30 km</div><div class="l">körzet</div></div></div>
+    <div class="stat-drop"><span class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8h6a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="6" width="4" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/></svg></span><div><div class="n">358</div><div class="l">munka / értékelés</div></div></div>
+  </div>
+</section>
+
+<!-- ===== ANIMÁLT ELEMEK ===== -->
+<section class="section">
+  <div class="sec-lab"><span class="k">Mozgó</span><h2>Animált elemek</h2><span class="line"></span></div>
+  <div class="grid g4">
+    <div class="card"><div class="demo"><div class="faucet"><svg viewBox="0 0 24 24" fill="none"><path d="M3 8h7v3H3zM10 9h5a3 3 0 0 1 3 3v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18 13v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="drip" style="left:calc(50% + 6px)"></span></div></div><div class="name">Csöpögő csap <span>drip</span></div></div>
+    <div class="card"><div class="demo"><div class="awave"><svg viewBox="0 0 2880 60" preserveAspectRatio="none" fill="currentColor"><path d="M0,30 C360,60 720,0 1440,30 C2160,60 2520,0 2880,30 L2880,60 L0,60 Z"/></svg></div></div><div class="name">Mozgó hullám <span>wave</span></div></div>
+    <div class="card"><div class="demo"><div class="bubbles-anim" id="bub"></div></div><div class="name">Felszálló buborékok <span>bubbles</span></div></div>
+    <div class="card"><div class="demo"><div class="fill"><div class="w"></div></div></div><div class="name">Töltődő tartály <span>fill</span></div></div>
+  </div>
+</section>
+
+<div style="height:40px"></div>
+</div>
+
+<script>
+const root=document.documentElement;
+function set(k,v){root.style.setProperty('--'+k,v)}
+const KEYS=['brand','cta','navy','cyan','bg'];
+function out(){ var o=document.getElementById('cssout'); if(o) o.textContent = KEYS.map(function(k){return '--'+k+':'+document.getElementById('c-'+k).value+';';}).join(' '); }
+function upd(k,v){ set(k,v); var h=document.getElementById('h-'+k); if(h) h.textContent=v; if(k==='bg') document.body.style.background=v; out(); }
+KEYS.forEach(function(k){ var el=document.getElementById('c-'+k); el.addEventListener('input',function(){ upd(k, el.value); }); });
+const PRE={
+  viz:{brand:'#1183d6',cta:'#f9531e',navy:'#0a2540',cyan:'#35b6ef',bg:'#eef4fb'},
+  smaragd:{brand:'#0e9f6e',cta:'#f9531e',navy:'#06251d',cyan:'#34d399',bg:'#eef5f1'},
+  grafit:{brand:'#2563eb',cta:'#f97316',navy:'#1e293b',cyan:'#60a5fa',bg:'#f3f5f8'},
+  homok:{brand:'#0f766e',cta:'#e2603f',navy:'#173430',cyan:'#39c0ad',bg:'#faf5ee'},
+};
+document.querySelectorAll('.pbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var p=PRE[b.dataset.p];
+    for(var k in p){ var inp=document.getElementById('c-'+k); if(inp) inp.value=p[k]; upd(k,p[k]); }
+  });
+});
+var cb=document.getElementById('copybtn');
+if(cb){ cb.addEventListener('click',function(){ var t=document.getElementById('cssout').textContent; if(navigator.clipboard) navigator.clipboard.writeText(t); cb.textContent='Másolva ✓'; setTimeout(function(){cb.textContent='Színek másolása';},1400); }); }
+out();
+// buborékok
+var bub=document.getElementById('bub');
+if(bub){ for(var i=0;i<10;i++){ var s=6+((i*7)%16), x=(i*11+5)%95; var el=document.createElement('i');
+  el.style.width=s+'px';el.style.height=s+'px';el.style.left=x+'%';
+  el.style.animationDuration=(2.5+ (i%5)*0.6)+'s';el.style.animationDelay=(i*0.35)+'s';bub.appendChild(el);} }
+</script>
+</body>
+</html>
